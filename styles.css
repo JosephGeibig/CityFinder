@@ -11787,21 +11787,10 @@ section#contact form#contactForm :-ms-input-placeholder {
 }
 
 .content-section {
-  padding-top: 7.5rem;
-  padding-bottom: 7.5rem;
+  padding-top: 5.5rem;
+  padding-bottom: 5.5rem;
 }
 
-
-.skill-icon {
-  background-color: #fff;
-  color: #f1ca0f;
-  height: 7rem;
-  width: 7rem;
-  display: block;
-  line-height: 7.5rem;
-  font-size: 2.25rem;
-  box-shadow: 0 3px 3px 0 rgba(0, 0, 0, 0.1);
-}
 
 .rounded-circle {
   border-radius: 50% !important;

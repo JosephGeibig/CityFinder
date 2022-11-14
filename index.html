@@ -44,19 +44,21 @@ Current color pallette (dark to light)
 <section class = "content-section"> 
     <div class = "container">
         <div class = "col-lg-10"> 
-            <h1 id = "title"> City Quality of Life!</h1>
+            <h1 id = "title" class = "heading"> City Quality of Life</h1>
         </div>
     </div>
  </section>
     
-    
-    <br>
-    
-    
     <section class = "content-section"> 
         <div class = "container">
-            
-                <p id = "intro" class = "">Introduction text here</p>
+<!--            Change this to be more pertinent to current state of project-->
+                <p id = "intro" class = "">     As Graduate students, we are all at a point of our lives when we must decide where to live as we begin our careers. There are many factors that affect this decision, and those factors may not be the same for everyone. However, we believe there are a few core factors that are shared amongst all people looking to relocate and find "home". There are a few “Quality of life” measures, such as NerdWallet’s cost of living index, but they tend to be extremely general, and as a result, quite inaccurate. Furthermore, some of the metrics used by these indexes are not the best representation of what we believe people look for when they move to a new area. </p>
+                <br>
+                <b> Above section needs to mention the following:</b>
+                <br>
+                <b> The motivations </b>
+                <br>
+                <b> What our project actually does  </b>
         </div>
     </section>
     
@@ -67,7 +69,13 @@ Current color pallette (dark to light)
     <section class = "content-section"> 
         <div class = "container">
             
-            <p id = "instructions"> Instructions on how to use the tool here </p>
+            <p id = "instructions"> To most effectively use our tool, it is recommended that users do a  </p>
+            <br>
+            <b> Above section needs to mention the following:</b>
+            <br>
+            <b> How to use the below choropleth / instructions</b>
+            <br>
+            <b> How each is calculated (maybe mention later, idk)  </b>
             
         </div>
     </section>
@@ -83,6 +91,15 @@ Current color pallette (dark to light)
     <script type="application/html" src="choropleth.html"></script>
     <script src = "https://d3js.org/d3.v4.min.js"></script>
 
+    <script id = "data" type = "text/javascript">
+    
+//    load / clean all the data here
+    
+    
+    </script>
+    
+    
+    
 
     <script id = "choro 1" type = "text/javascript">
     
@@ -99,9 +116,9 @@ var projection = d3.geoAlbersUsa()
   .translate([width / 2, height / 2]) // translate to center of screen
   .scale([1000]); // scale things down so see entire US
 
-// Define path generator
-var path = d3.geoPath() // path generator that will convert GeoJSON to SVG paths
-  .projection(projection); // tell path generator to use albersUsa projection
+// definte the state splitting
+var path = d3.geoPath() 
+  .projection(projection); // uses albersusa
 
 //Create SVG element and append map to the SVG
 var svg = d3.select("body")
@@ -161,8 +178,8 @@ d3.csv("statesdata.csv", function(data) {
 
 		var key = d3.select("body")
 			.append("svg")
-			.attr("width", w)
-			.attr("height", h)
+			.attr("width", width)
+			.attr("height", 1500)
 			.attr("class", "legend");
 
 		var legend = key.append("defs")
@@ -210,15 +227,56 @@ d3.csv("statesdata.csv", function(data) {
         <div class = "container">
             
             <p id = "dash"> dashboard text</p>
-            
+            <br>
+            <b> Above section needs to mention the following:</b>
+            <br>
+            <b> What data is represented in the dashboard</b>
+            <br>
+            <b> How to use dashboard (if necessary)</b>
         </div>
     </section>
     
-    <script id = "dash">
+    <script id = "dash" type = "text/javascript">
     
 //    insert the dashboard stuff here
     
     </script>
+    
+    <br>
+    
+    <section class = "content-section"> 
+        <div class = "container">
+            <p id = "knn"> Info on the knn</p>
+            <br>
+            <b> Above section needs to mention the following:</b>
+            <br>
+            <b> What is a knn?</b>
+            <br>
+            <b> How we implemented it ? </b>
+            <br>
+            <b> how to use (if interactivity included) </b>
+        </div>
+    </section>
+    
+    <script id = "knn" type = "text/javascript">
+    
+    
+    
+    </script>
+    
+    <br>
+    
+    <section class = "content-section"> 
+        <div class = "container">
+            <p id = "data"> Information on the data  text</p>
+            <br>
+            <b> Above section needs to mention the following:</b>
+            <br>
+            <b> where the data comes from</b>
+            <br>
+            <b> How we implemented it  </b>
+        </div>
+    </section>
     
     <br>
     
