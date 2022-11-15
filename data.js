@@ -19,7 +19,7 @@
 
 // THIS IS THE AGGREGATED STANDARDIZED DATA 
 
-var pathToCsv1 = "data/State agg - standard2.csv";		// path to csv
+var pathToCsv1 = "data/State agg - standard.csv";		// path to csv
 	
     d3.dsv(",", pathToCsv1, function (d) {
       return {
@@ -71,7 +71,7 @@ var pathToCsv1 = "data/State agg - standard2.csv";		// path to csv
           
       }
     }).then(function (data) {
-      console.log(data);
+//      console.log(data);
         
         // have to find a way to link this data to the us_states json to be able to map it to choropleth
         
@@ -145,7 +145,7 @@ var pathToCsv2 = "data/State agg - no standard.csv";		// path to csv
           
       }
     }).then(function (data) {
-      console.log(data);
+//      console.log(data);
         
         // have to find a way to link this data to the us_states json to be able to map it to choropleth
         
