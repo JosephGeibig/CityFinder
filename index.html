@@ -84,22 +84,40 @@ Current color pallette (dark to light)
     
     
     <script type="text/javascript" src="../lib/d3.v5.min.js"></script>
-    <script type="text/javascript" src="/lib/d3-geo-projection.v2.min.js"></script>
-    <script type="text/javascript" src="/lib/d3-dsv.min.js"></script>
-    <script type="text/javascript" src="/lib/d3-tip.min.js"></script>
-    <script type="text/javascript" src="/lib/d3-legend.min.js"></script>
-    <script type="text/javascript" src= "/lib/topojson.v2.min.js"></script> 
+    <script type="text/javascript" src="../lib/d3-geo-projection.v2.min.js"></script>
+    <script type="text/javascript" src="../lib/d3-dsv.min.js"></script>
+    <script type="text/javascript" src="../lib/d3-tip.min.js"></script>
+    <script type="text/javascript" src="../lib/d3-legend.min.js"></script>
+    <script type="text/javascript" src= "../lib/topojson.v2.min.js"></script> 
     <script src = "https://d3js.org/d3.v4.min.js"></script>
     
     
 
     <!-- Script to hold loading/cleaning data -->
-    <script type = "text/javascript" src = 'data.js'></script>
+<!--    <p> choro 1</p>-->
+    <span>
+    Which variable? <select id="variableDropdown"></select>
+    </span>
+    <script type = "text/javascript" src = 'choropleth.js'>
+//    console.log(data)
+    </script>
+<!--
+    
+    <br><br><br><p> break</p> <br> <br> <br>
   
+    <p> choro 2</p>
+    <script type = "text/javascript" src = 'choropleth2.js'>
+//    console.log(data)
+    </script>
+-->
     
     
     <!-- Script to hold the main choropleth visualization-->
-    <script type = "text/javascript" src = 'choropleth.js'></script>
+<!--
+    <script type = "text/javascript" src = 'choropleth.js'>
+    console.log(data)
+    </script>
+-->
  
     
     <br>

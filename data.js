@@ -72,9 +72,10 @@ var pathToCsv1 = "data/State agg - standard.csv";		// path to csv
       }
     }).then(function (data) {
 //      console.log(data);
-        
+        console.log(data.columns)
         // have to find a way to link this data to the us_states json to be able to map it to choropleth
-        
+//    for (i in )
+//    var equation = average  
         // in order to do this we might need to add another column of "state name" based on the state_abbrev or change the name in us_states to the abbreviated version (Might need to find a way to standardize hte number of cities value but unsure about how important that might be)
         
         // Not sure how the above will work from between files but we'll make it happen
