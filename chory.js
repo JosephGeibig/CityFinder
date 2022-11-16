@@ -23,7 +23,7 @@ var svg = d3.select("body")
         .attr("width", width)
         .attr("height", height);
 
-var pathToCsv2 = "data/State agg - no standard.csv"; //please note this csv doesnt have alaska
+var pathToCsv2 = "data/State agg - standard.csv"; //please note this csv doesnt have alaska
 // path to csv
 //
 // Promise.all([
@@ -108,6 +108,7 @@ d3.dsv(",", pathToCsv2, function (d) {
     var minn = d3.min(dataarray);
     var scaler = d3.scaleLinear()
                     .domain([minn,maxx])
+                    .interpolate(d3.interpolateLab)
                     .range([lowColor,highColor]);
 //    console.log(maxx, minn)
 
@@ -207,8 +208,9 @@ d3.dsv(",", pathToCsv2, function (d) {
         var maxx1 = d3.max(dataray);
         var minn1 = d3.min(dataray);
         var scaler1 = d3.scaleLinear()
-                    .domain([minn1,maxx1])
-                    .range(lowColor,highColor);
+                    .domain([minn1, maxx1])
+                    .interpolate(d3.interpolateLab)
+                    .range([lowColor, highColor]);
 
         console.log(dataray, minn1, maxx1)
         
@@ -217,10 +219,10 @@ d3.dsv(",", pathToCsv2, function (d) {
             .enter()
             .append("path")
             .attr("d", path)
-            .style("stroke", "#000")
+            .style("stroke", "#fff")
             .style("stroke-width", "1")
             .style("fill",function(d) {
-            return scaler(d.properties.variable)
+            return scaler1(d.properties.variable)
         }) 
         
 //            if (ratings_dict[d.properties.name]["Average Rating"] === 0) return "gray";
