@@ -16,6 +16,9 @@ var projection = d3.geoAlbersUsa()
 var path = d3.geoPath() 
 .projection(projection); // uses albersusa
 
+// formatting for large numbers
+var thousandsformat = d3.format(",");
+
 // Create SVG element and append map to the SVG
 
 var svg = d3.select("body")
@@ -162,7 +165,13 @@ d3.dsv(",", pathToCsv2, function (d) {
 
         
         
-        // If we want to add city dots the code below *should* do it. Major problems with null values that brick live preview somewhere down the line 
+        // If we want to add city dots the code below *should* do it. Major problems with null values that brick live preview somewhere down the line
+        
+        // If we do this we should add a "show cities" button that shows / hides the cities
+        
+        // If we include this information we have to provide a link to the city georgaphies dataset somewhere on the page, probably in the data section
+        
+        
         
 //        d3.csv("data/gdata_not_standardized.csv", function(city) {
 //						console.log(city)
@@ -187,6 +196,9 @@ d3.dsv(",", pathToCsv2, function (d) {
 //						   .text(function(d) {
 //								return d.place + ": Pop. " + formatAsThousands(d.population);
 //						   });
+        
+
+        
         
         
         
@@ -244,9 +256,10 @@ d3.dsv(",", pathToCsv2, function (d) {
     }
         
 //        console.log(dataray)
-        var lowColor = '#ABE0B9';
-        var highColor = '#045725';
-        var midColor = "#1A9B4F";
+        var lowColor = '#91DFDA';
+        var highColor = '#00354C';
+        var midColor = "#3195BE";
+        var pickColor = "#ff8200";
         var maxx1 = d3.max(dataray);
         var midd1 = d3.median(dataray)
         var minn1 = d3.min(dataray);
@@ -255,8 +268,6 @@ d3.dsv(",", pathToCsv2, function (d) {
                     .interpolate(d3.interpolateLab)
                     .range([lowColor,midColor, highColor]);
 
-//        console.log(dataray, minn1, maxx1)
-        
         
         
         
@@ -290,7 +301,6 @@ d3.dsv(",", pathToCsv2, function (d) {
         
         tip.show(d);
         
-//        if (clicked === "false") {
         
         d3.select(this)
             .transition()
@@ -298,7 +308,6 @@ d3.dsv(",", pathToCsv2, function (d) {
             .style("opacity", 1)
             .style("stroke", "#000")
     
-//        }
         if (clicked === "true" && selected === d.properties.name 
                     ) {
                     
@@ -306,7 +315,7 @@ d3.dsv(",", pathToCsv2, function (d) {
                         .transition()
                         .duration(200)
                         .style("opacity", 1)
-                        .style("stroke", "red")
+                        .style("stroke", pickColor)
                     
                     }
 
@@ -342,10 +351,10 @@ d3.dsv(",", pathToCsv2, function (d) {
                         .transition()
                         .duration(200)
                         .style("opacity", 1)
-                        .style("stroke", "red")
+                        .style("stroke", pickColor)
                     
                     }
-//                    console.log("Yes", name, d.properties.name)
+                     
                  }
                 }
         
@@ -388,7 +397,7 @@ d3.dsv(",", pathToCsv2, function (d) {
                     .transition()
                     .duration(200)
                     .style("opacity", 1)
-                    .style("stroke", "red")
+                    .style("stroke", pickColor)
        }
 //            console.log(clicked)
 //            console.log(name)
@@ -396,7 +405,7 @@ d3.dsv(",", pathToCsv2, function (d) {
    })
 //        on double click code –– cancels the click selection
             .on("dblclick", function(d){
-            
+                if (clicked === "true" && selected === d.properties.name){
                 d3.select(this)
                     .transition()
                     .duration(200)
@@ -405,8 +414,8 @@ d3.dsv(",", pathToCsv2, function (d) {
             selected = undefined
             clicked = "false"
 //            console.log(clicked)
-//            console.log(d.properties.name)
-       
+//           } console.log(d.properties.name)
+                }
    })
         
         
@@ -467,32 +476,7 @@ d3.dsv(",", pathToCsv2, function (d) {
         
         
         
-        
-        
-//            if (ratings_dict[d.properties.name]["Average Rating"] === 0) return "gray";
-//            return color(ratings_dict[d.properties.name]["Average Rating"]);
-//        })
-
-               
-               // Hover label -- add later
-//    .on('mouseover', function (d) {
-//        var rating = ratings_dict[d.properties.name]["Average Rating"];
-//        d.rating =  rating > 0? rating: "N/A";
-//        d.users = ratings_dict[d.properties.name]["Number of Users"] || "N/A";
-//        d.game = selectedGame;
-//        tip.show(d);
-//        d3.select(this)
-//            .style('stroke-width', 2);
-//    }).on('mouseout', function (d) {
-//            tip.hide(d);
-//            d3.select(this)
-//                .style('stroke-width', 0.3);
-//    });
-//}
-//        
-//        
-//        
-//        
+    
 
     }
     });
