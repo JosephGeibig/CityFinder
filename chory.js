@@ -120,7 +120,7 @@ d3.dsv(",", pathToCsv2, function (d) {
         var valuelist = ["Number of Cities",
                          "Average 2020/2021 household income",
                          "Historic Percent Change in Household Income 1984-2019",
-                         "Average Yealry Historic Percent Change in Income 1984-2019",
+                         "Average Yearly Historic Percent Change in Income 1984-2019",
                          "Minimum Wage", 
                          "Average House Price 2020/2021",
                          "Percent Change in Historic House Prices 2000-2019",
