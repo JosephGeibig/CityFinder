@@ -24,20 +24,7 @@ var svg = d3.select("body")
         .attr("height", height);
 
 var pathToCsv2 = "data/State agg - no standard.csv"; //please note this csv doesnt have alaska
-// path to csv
-//
-// Promise.all([
-//            // enter code to read files
-//        d3.json("us_states.json"),
-//        d3.csv("data/state_agg_no standard.csv")
-//        ]).then(
-//            // enter code to call ready() with required arguments
-//            data => ready(null, data[0], data[1])
-//            
-//        );
-//        function ready(error, states, data) {
-//            console.log(data)
-//        }
+
 valuelist = ["NumCities","Avg_recent_hincome","PC_historic_hincome","AYPC_historic_hincome","minwage", "Avg_recent_housep","PC_historic_housep","PC_historic_housep","AYPC_historic_housep","Violent_Crime","Property_Crime","Property_Crime_PC","Violent_Crime_PC","Total_Crime_PC","Pop","Men","Women","VotingAge","Employed","Hispanic","White","Black","Native","Asian","Pacific","Income","Income_PC","Poverty","ChildPoverty","Professional","Service","Office","Construction","Production","Drive","Carpool","Transit","OtherTrans","WorkAtHome","MeanCommute","PrivateWork","SelfEmployed","FamilyWork","Unemployment","Population"];
 d3.dsv(",", pathToCsv2, function (d) {
   return {
@@ -125,18 +112,7 @@ d3.dsv(",", pathToCsv2, function (d) {
                 }
             }
         }
-        
-//        console.log(json)
-        
-//         The below code is the creation of the choropleth. Include here if you just want a static choropleth. It is included later to do the reactive thing 
-//        svg.selectAll("path")
-//            .data(json.features)
-//            .enter()
-//            .append("path")
-//            .attr("d", path)
-//            .style("stroke", "#000")
-//            .style("stroke-width", "1")
-//            .style("fill", function(d) { return scaler(d.properties.NumCities) });
+
         
         var valuelist = ["Number of Cities",
                          "Average 2020/2021 household income",
@@ -211,22 +187,6 @@ d3.dsv(",", pathToCsv2, function (d) {
 //						   .text(function(d) {
 //								return d.place + ": Pop. " + formatAsThousands(d.population);
 //						   });
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
         
         
         
@@ -451,8 +411,54 @@ d3.dsv(",", pathToCsv2, function (d) {
         
         
         
-
+// legend
         
+        // I have genuinely no idea how to fix this, but it would be a good add. Code pulled form choropleth_example.js
+        
+//        var w = 140, h = 300;
+//
+//        var key = d3.select("span")
+//            .append("svg")
+//            .attr("width", width)
+//            .attr("height", 1500)
+//            .attr("class", "legend");
+//
+//        var legend = key.append("defs")
+//            .append("svg:linearGradient")
+//            .attr("id", "gradient")
+//            .attr("x1", "100%")
+//            .attr("y1", "0%")
+//            .attr("x2", "100%")
+//            .attr("y2", "100%")
+//            .attr("spreadMethod", "pad");
+//
+//        legend.append("stop")
+//            .attr("offset", "0%")
+//            .attr("stop-color", highColor)
+//            .attr("stop-opacity", 1);
+//
+//        legend.append("stop")
+//            .attr("offset", "100%")
+//            .attr("stop-color", lowColor)
+//            .attr("stop-opacity", 1);
+//
+//        key.append("rect")
+//            .attr("width", w - 100)
+//            .attr("height", h)
+//            .style("fill", "url(#gradient)")
+//            .attr("transform", "translate(0,10)");
+//
+//        var y = d3.scaleLinear()
+//            .range([h, 0])
+//            .domain([minn1, maxx1]);
+//
+//        var yAxis = d3.axisRight(y);
+//
+//        key.append("g")
+//            .attr("class", "y axis")
+//            .attr("transform", "translate(100,-100)")
+//            .call(yAxis)
+//        
         
         
         
