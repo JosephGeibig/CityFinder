@@ -1,3 +1,8 @@
+//{ 
+//"type": "module"
+//}
+
+
 var width = 960;
 var height = 500;
 
@@ -26,9 +31,59 @@ var svg = d3.select("body")
         .attr("width", width)
         .attr("height", height);
 
-var pathToCsv2 = "data/State agg - no standard.csv"; //please note this csv doesnt have alaska
 
-valuelist = ["NumCities","Avg_recent_hincome","PC_historic_hincome","AYPC_historic_hincome","minwage", "Avg_recent_housep","PC_historic_housep","PC_historic_housep","AYPC_historic_housep","Violent_Crime","Property_Crime","Property_Crime_PC","Violent_Crime_PC","Total_Crime_PC","Pop","Men","Women","VotingAge","Employed","Hispanic","White","Black","Native","Asian","Pacific","Income","Income_PC","Poverty","ChildPoverty","Professional","Service","Office","Construction","Production","Drive","Carpool","Transit","OtherTrans","WorkAtHome","MeanCommute","PrivateWork","SelfEmployed","FamilyWork","Unemployment","Population"];
+// variables for later
+var clicked = "false"
+var selected = undefined
+
+
+
+var pathToCsv2 = "data/State agg - no standard.csv"; //please note this csv doesnt have alaska
+var valuelist = ["Number of Cities",
+                         "Average 2020/2021 household income",
+                         "Historic Percent Change in Household Income 1984-2019",
+                         "Average Yealry Historic Percent Change in Income 1984-2019",
+                         "Minimum Wage", 
+                         "Average House Price 2020/2021",
+                         "Percent Change in Historic House Prices 2000-2019",
+                         "Average Yearly Percent Change in Housing Prices 2000-2019",
+                         "# of Violent Crime",
+                         "# of Property Crime",
+                         "Property Crime Per Capita",
+                         "Violent Crime Per Capita",
+                         "Total Crime Per Capita",
+                         "Pop",
+                         "Men",
+                         "Women",
+                         "VotingAge",
+                         "Employed",
+                         "Hispanic",
+                         "White",
+                         "Black",
+                         "Native",
+                         "Asian",
+                         "Pacific",
+                         "Average Income",
+                         "Income Per Capita",
+                         "Poverty",
+                         "ChildPoverty",
+                         "Professional",
+                         "Service",
+                         "Office",
+                         "Construction",
+                         "Production",
+                         "Drive",
+                         "Carpool",
+                         "Transit",
+                         "OtherTrans",
+                         "WorkAtHome",
+                         "MeanCommute",
+                         "PrivateWork",
+                         "SelfEmployed",
+                         "FamilyWork"
+                         ,"Unemployment",
+                         "Population"];
+        
 d3.dsv(",", pathToCsv2, function (d) {
   return {
       State_abbrev: d["State Abbreviation"],
@@ -352,6 +407,7 @@ d3.dsv(",", pathToCsv2, function (d) {
                         .duration(200)
                         .style("opacity", 1)
                         .style("stroke", pickColor)
+//                        .style("fill",pickColor)
                     
                     }
                      
@@ -361,12 +417,40 @@ d3.dsv(",", pathToCsv2, function (d) {
     }
     
     
-    // on click code 
-    
-    
-    
-        var clicked = "false"
-        var selected = undefined
+    // on click code
+//        export selected
+//        export clicked
+        let oneclick = function(d) {
+            if (clicked === "false"){
+            clicked = "true";
+            selected = d.properties.name;
+//            modules.export = {selected = selected}    
+            
+                d3.select(this)
+                    .transition()
+                    .duration(200)
+                    .style("opacity", 1)
+                    .style("stroke", pickColor)
+//            export {clicked, selected}
+            
+            }
+    }
+         
+        let dubclick = function(d) {
+            if (clicked === "true" && selected === d.properties.name){
+                
+                d3.select(this)
+                    .transition()
+                    .duration(200)
+                    .style("opacity", .8)
+                    .style("stroke", "transparent")
+//                    .style("fill", )
+            selected = undefined;
+            clicked = "false";
+            
+//                export {clicked, selected}
+                }
+    }
         
         
    svg.selectAll("path")
@@ -387,37 +471,9 @@ d3.dsv(",", pathToCsv2, function (d) {
                     
         
         // on click code
-            .on("click", function(d) {
-       
-       // for the future dashboard, be sure to load this file into the other javascript file and then adjust the below code. 
-       if (clicked === "false"){
-            clicked = "true"
-            selected = d.properties.name
-                d3.select(this)
-                    .transition()
-                    .duration(200)
-                    .style("opacity", 1)
-                    .style("stroke", pickColor)
-       }
-//            console.log(clicked)
-//            console.log(name)
-//            console.log(d.properties.name)
-   })
+            .on("click", oneclick)
 //        on double click code –– cancels the click selection
-            .on("dblclick", function(d){
-                if (clicked === "true" && selected === d.properties.name){
-                d3.select(this)
-                    .transition()
-                    .duration(200)
-                    .style("opacity", .8)
-                    .style("stroke", "transparent")
-            selected = undefined
-            clicked = "false"
-//            console.log(clicked)
-//           } console.log(d.properties.name)
-                }
-   })
-        
+            .on("dblclick",dubclick)
         
         
 // legend
@@ -470,16 +526,11 @@ d3.dsv(",", pathToCsv2, function (d) {
 //        
         
         
-        
-        
-        
-        
-        
+              // add dashboard  
         
     
 
     }
     });
 });
-
-
+ 
