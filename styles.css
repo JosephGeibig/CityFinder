@@ -11803,3 +11803,12 @@ section#contact form#contactForm :-ms-input-placeholder {
 a {
   color: rgb(241 , 196 , 15);
 }
+
+/*d3-tip */
+.d3-tip {
+            background: rgba(0, 0, 0, 0.6);
+            color: #fff;
+            padding: 10px;
+        }
+
+

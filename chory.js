@@ -23,7 +23,7 @@ var svg = d3.select("body")
         .attr("width", width)
         .attr("height", height);
 
-var pathToCsv2 = "data/State agg - standard.csv"; //please note this csv doesnt have alaska
+var pathToCsv2 = "data/State agg - no standard.csv"; //please note this csv doesnt have alaska
 // path to csv
 //
 // Promise.all([
@@ -43,19 +43,19 @@ d3.dsv(",", pathToCsv2, function (d) {
   return {
       State_abbrev: d["State Abbreviation"],
       StateName: d["State Name"],
-      NumCities: d["Number of Cities"],
-      Avg_recent_hincome: d["Average Household Income 2020/2021"],
-      PC_historic_hincome: d["Percent Change in Household Income, 1984-2019"],
-      AYPC_historic_hincome: d["Average Yearly Percent Change in Household Income, 1984-2019"],
-      minwage: d["MinWage"],
-      Avg_recent_housep: d["Average House Price 2020/2021"],
-      PC_historic_housep: d["Percent Change in Housing Prices, 2000-2019"],
-      AYPC_historic_housep: d["Average Yearly Percent Change in Housing Prices, 2000-2019"],
-      Violent_Crime: d["Violent Crime Total"],
-      Property_Crime: d["Property Crime Total"],
-      Property_Crime_PC: d["Property Crime Per Capita"],
-      Violent_Crime_PC: d["Violent Crime Per Capita"],
-      Total_Crime_PC: d["Total Crime Per Capita"],
+      ["Number of Cities"]: d["Number of Cities"],
+      ["Average 2020/2021 household income"]: d["Average Household Income 2020/2021"],
+      ["Historic Percent Change in Household Income 1984-2019"]: d["Percent Change in Household Income, 1984-2019"],
+      ["Average Yealry Historic Percent Change in Income 1984-2019"]: d["Average Yearly Percent Change in Household Income, 1984-2019"],
+      ["Minimum Wage"]: d["MinWage"],
+      ["Average House Price 2020/2021"]: d["Average House Price 2020/2021"],
+      ["Percent Change in Historic House Prices 2000-2019"]: d["Percent Change in Housing Prices, 2000-2019"],
+      ["Average Yearly Percent Change in Housing Prices 2000-2019"]: d["Average Yearly Percent Change in Housing Prices, 2000-2019"],
+      ["# of Violent Crime"]: d["Violent Crime Total"],
+      ["# of Property Crime"]: d["Property Crime Total"],
+      ["Property Crime Per Capita"]: d["Property Crime Per Capita"],
+      ["Violent Crime Per Capita"]: d["Violent Crime Per Capita"],
+      ["Total Crime Per Capita"]: d["Total Crime Per Capita"],
       Pop: d.TotalPop,
       Men: d.Men,
       Women: d.Women,
@@ -67,8 +67,8 @@ d3.dsv(",", pathToCsv2, function (d) {
       Native: d.Native,
       Asian: d.Asian,
       Pacific: d.Pacific,
-      Income: d.Income,
-      Income_PC: d.IncomePerCap,
+      ["Average Income"]: d.Income,
+      ["Income Per Capita"]: d.IncomePerCap,
       Poverty: d.Poverty,
       ChildPoverty: d.ChildPoverty,
       Professional: d.Professional,
@@ -115,7 +115,8 @@ d3.dsv(",", pathToCsv2, function (d) {
     d3.json("us_states.json", function(json) {
         for (var i = 0; i < data.length; i++) {
             var dataState = data[i].StateName;
-            var dataValue = parseInt(data[i].NumCities); // This will need to be replaced / reactive
+            var dataValue = parseInt(data[i]["Number of Cities"]); // This will need to be replaced / reactive
+//            console.log(dataValue)
             for (var j = 0; j < json.features.length; j++) { // loop the json to find the states
                 var jsonState = json.features[j].properties.name;
                 if (dataState == jsonState) {
@@ -137,24 +138,104 @@ d3.dsv(",", pathToCsv2, function (d) {
 //            .style("stroke-width", "1")
 //            .style("fill", function(d) { return scaler(d.properties.NumCities) });
         
-        var valuelist = ["NumCities","Avg_recent_hincome","PC_historic_hincome","AYPC_historic_hincome","minwage", "Avg_recent_housep","PC_historic_housep","PC_historic_housep","AYPC_historic_housep","Violent_Crime","Property_Crime","Property_Crime_PC","Violent_Crime_PC","Total_Crime_PC","Pop","Men","Women","VotingAge","Employed","Hispanic","White","Black","Native","Asian","Pacific","Income","Income_PC","Poverty","ChildPoverty","Professional","Service","Office","Construction","Production","Drive","Carpool","Transit","OtherTrans","WorkAtHome","MeanCommute","PrivateWork","SelfEmployed","FamilyWork","Unemployment","Population"];
+        var valuelist = ["Number of Cities",
+                         "Average 2020/2021 household income",
+                         "Historic Percent Change in Household Income 1984-2019",
+                         "Average Yealry Historic Percent Change in Income 1984-2019",
+                         "Minimum Wage", 
+                         "Average House Price 2020/2021",
+                         "Percent Change in Historic House Prices 2000-2019",
+                         "Average Yearly Percent Change in Housing Prices 2000-2019",
+                         "# of Violent Crime",
+                         "# of Property Crime",
+                         "Property Crime Per Capita",
+                         "Violent Crime Per Capita",
+                         "Total Crime Per Capita",
+                         "Pop",
+                         "Men",
+                         "Women",
+                         "VotingAge",
+                         "Employed",
+                         "Hispanic",
+                         "White",
+                         "Black",
+                         "Native",
+                         "Asian",
+                         "Pacific",
+                         "Average Income",
+                         "Income Per Capita",
+                         "Poverty",
+                         "ChildPoverty",
+                         "Professional",
+                         "Service",
+                         "Office",
+                         "Construction",
+                         "Production",
+                         "Drive",
+                         "Carpool",
+                         "Transit",
+                         "OtherTrans",
+                         "WorkAtHome",
+                         "MeanCommute",
+                         "PrivateWork",
+                         "SelfEmployed",
+                         "FamilyWork"
+                         ,"Unemployment",
+                         "Population"];
         
-//        console.log(valuelist[0])
-//        var dictionary = {}
-//        for (var i = 0; i < data.length; i++) {}
-//        
+
+        
+        
+        // If we want to add city dots the code below *should* do it. Major problems with null values that brick live preview somewhere down the line 
+        
+//        d3.csv("data/gdata_not_standardized.csv", function(city) {
+//						console.log(city)
+//						svg.selectAll("circle")
+//						   .data(city)
+//						   .enter()
+//						   .append("circle")
+//						   .attr("cx", function(d) {
+//                            return (projection([d.lng,d.lat])[0])
+////							   
+//						   })
+////                        console.log(projection([d.lng,d.lat]))
+//						   .attr("cy", function(d) {
+//							   return projection([d.lng, d.lat])[1];
+//						   })
+////						   .attr("r", 5)
+//						   .style("fill", "yellow")
+//						   .style("stroke", "gray")
+//						   .style("stroke-width", 0.25)
+//						   .style("opacity", 0.75)
+//						   .append("title")			//Simple tooltip
+//						   .text(function(d) {
+//								return d.place + ": Pop. " + formatAsThousands(d.population);
+//						   });
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
         
         var dropvar = data.columns
         var first = dropvar.shift() // ignore these its the only way I could get this to work
         var second = dropvar.shift() // ""
         var third = dropvar.shift() // ""
-
-        
-// #### NEED TO DO ####
-// WE NEED TO CHANGE THE DISPLAY VARIABLES TO DROPVAR WHILE KEEPING THE VALUES AS VALUELIST
-//variables: 
-//           dropvar = the variable names that are pretty and we want to display
-//           valuelist = the variable names actually used in the math
         
         d3.select("#variableDropdown")
         .selectAll("options")
@@ -203,27 +284,184 @@ d3.dsv(",", pathToCsv2, function (d) {
     }
         
 //        console.log(dataray)
-        var lowColor = '#DEEDCF';
-        var highColor = '#0A2F51';
+        var lowColor = '#ABE0B9';
+        var highColor = '#045725';
+        var midColor = "#1A9B4F";
         var maxx1 = d3.max(dataray);
+        var midd1 = d3.median(dataray)
         var minn1 = d3.min(dataray);
         var scaler1 = d3.scaleLinear()
-                    .domain([minn1, maxx1])
+                    .domain([minn1,midd1, maxx1])
                     .interpolate(d3.interpolateLab)
-                    .range([lowColor, highColor]);
+                    .range([lowColor,midColor, highColor]);
 
-        console.log(dataray, minn1, maxx1)
+//        console.log(dataray, minn1, maxx1)
+        
+        
+        
+        
+        
+        
+    // mouseover code, remove if you dont want mouseover
+        
+    //tooltip for the mouseover
+        
+    const tip = d3.tip()
+        .attr("id", "tooltip")
+        .attr('class', 'd3-tip')
+        .attr('offset', [-1, 0])
+        .html(function (d) {
+            return `<strong>State: </strong><span class='details'>${d.properties.name}<br></span>
+            <strong>Number of Cities: </strong><span class='details'>${d.properties.NumCities}<br/></span>
+            <strong>${varselect}: </strong><span class='details'>${d.properties.variable}<br/></span>`
+//                    <strong>Number of Users: </strong><span class='details'>${d.users}<br/></span>
+//                    <strong>Avg Rating: </strong><span class='details'>${d.rating}<br/></span>`
+        });
+        
+    svg.call(tip);
+
+        //mouseover code
+                
+    let mouseOver = function(d) {
+        d3.selectAll(".State")
+            .transition()
+            .duration(200)
+            .style("opacity",.5)
+        
+        tip.show(d);
+        
+//        if (clicked === "false") {
+        
+        d3.select(this)
+            .transition()
+            .duration(200)
+            .style("opacity", 1)
+            .style("stroke", "#000")
+    
+//        }
+        if (clicked === "true" && selected === d.properties.name 
+                    ) {
+                    
+                     d3.select(this)
+                        .transition()
+                        .duration(200)
+                        .style("opacity", 1)
+                        .style("stroke", "red")
+                    
+                    }
+
+    }
+    
+    let mouseLeave = function(d) {
+        if (d.properties.name != selected) {
+                    
+                    
+                    
+                    d3.selectAll(".State")
+                    .transition()
+                    .duration(200)
+                    .style("opacity",.8)
+
+
+
+                tip.hide(d);
+
+                 if (clicked === "false" || clicked === "true" && selected != d.properties.name 
+                    ) {
+
+                    d3.select(this)
+                        .transition()
+                        .duration(200)
+                        .style("opacity", .8)
+                        .style("stroke", "transparent")
+                    
+                if (clicked === "true" && selected === d.properties.name 
+                    ) {
+                    
+                     d3.select(this)
+                        .transition()
+                        .duration(200)
+                        .style("opacity", 1)
+                        .style("stroke", "red")
+                    
+                    }
+//                    console.log("Yes", name, d.properties.name)
+                 }
+                }
+        
+    }
+    
+    
+    // on click code 
+    
+    
+    
+        var clicked = "false"
+        var selected = undefined
+        
         
    svg.selectAll("path")
             .data(json.features)
             .enter()
             .append("path")
             .attr("d", path)
-            .style("stroke", "#fff")
-            .style("stroke-width", "1")
+            .style("stroke", "transparent")
+            .style("stroke-width", 2)
             .style("fill",function(d) {
             return scaler1(d.properties.variable)
-        }) 
+            
+   }) 
+         // mouseover code, remove if you dont want mouseovers
+            .style("opacity", .8)
+            .on("mouseover", mouseOver)
+            .on("mouseleave", mouseLeave)
+                    
+        
+        // on click code
+            .on("click", function(d) {
+       
+       // for the future dashboard, be sure to load this file into the other javascript file and then adjust the below code. 
+       if (clicked === "false"){
+            clicked = "true"
+            selected = d.properties.name
+                d3.select(this)
+                    .transition()
+                    .duration(200)
+                    .style("opacity", 1)
+                    .style("stroke", "red")
+       }
+//            console.log(clicked)
+//            console.log(name)
+//            console.log(d.properties.name)
+   })
+//        on double click code –– cancels the click selection
+            .on("dblclick", function(d){
+            
+                d3.select(this)
+                    .transition()
+                    .duration(200)
+                    .style("opacity", .8)
+                    .style("stroke", "transparent")
+            selected = undefined
+            clicked = "false"
+//            console.log(clicked)
+//            console.log(d.properties.name)
+       
+   })
+        
+        
+        
+
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
         
 //            if (ratings_dict[d.properties.name]["Average Rating"] === 0) return "gray";
 //            return color(ratings_dict[d.properties.name]["Average Rating"]);
@@ -249,15 +487,9 @@ d3.dsv(",", pathToCsv2, function (d) {
 //        
 //        
 //        
-        
-        
-        
 
     }
-        
     });
-   
-    
 });
 
 
