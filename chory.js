@@ -36,7 +36,7 @@ d3.dsv(",", pathToCsv2, function (d) {
       ["Number of Cities"]: d["Number of Cities"],
       ["Average 2020/2021 household income"]: d["Average Household Income 2020/2021"],
       ["Historic Percent Change in Household Income 1984-2019"]: d["Percent Change in Household Income, 1984-2019"],
-      ["Average Yealry Historic Percent Change in Income 1984-2019"]: d["Average Yearly Percent Change in Household Income, 1984-2019"],
+      ["Average Yearly Historic Percent Change in Income 1984-2019"]: d["Average Yearly Percent Change in Household Income, 1984-2019"],
       ["Minimum Wage"]: d["MinWage"],
       ["Average House Price 2020/2021"]: d["Average House Price 2020/2021"],
       ["Percent Change in Historic House Prices 2000-2019"]: d["Percent Change in Housing Prices, 2000-2019"],
