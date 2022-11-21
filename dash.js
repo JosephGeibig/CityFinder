@@ -8,6 +8,8 @@ var svg2 = d3.select("body")
 
 //Write a function to make the dashboard 
 //Other things to do: read in data from different file--not state aggregated. Link each city to the state so that only cities in that state appear in when a state is selected. 
+//Other things to do: initialize state variable in code for click in chory.js. then run function with that given state as the input. 
+// Write a function to make output once the city is selected from the dropdown. Another funciton may be needed to run the KNN as well. 
 function DashBoard(state) {
     var pathToCsv3 = "data/dns4.csv";
     d3.dsv(",", pathToCsv3, function (d) {
@@ -64,10 +66,17 @@ function DashBoard(state) {
     }).then(function (data) {
 
     console.log(data);
+        
+    data.forEach(function (d){
+        if (d.StateName === state){
+            "cityname" = d.CityName
+            }
+        
+    })
     
     d3.select("#cityDropdown")
         .selectAll("options")
-        .data(valuelist).enter()
+        .data("cityname").enter()
         .append("option")
         .text(function (d) {
             return d;
@@ -76,13 +85,12 @@ function DashBoard(state) {
         .attr("value", function (d) {
             return d;
         });
-       
-            // event listener for the dropdown. Update choropleth and legend when selection changes. Call createMapAndLegend() with required arguments.
-        d3.select("#cityDropdown").on("change", function (d) {
-            svg.html("")
-            createMap(json, data, d3.select(this).property("value"));
+        
+     d3.select("#cityDropdown").on("change", function (d) {
+           svg2.html("")
+//Need to write another function for creating the table. Don't yet know what this table is supposed to look like. Also need to link to knn for the selected city. 
+           //createMap(json, data, d3.select(this).property("value"));
     });
         // run creation function on NumCities
-        createMap(json, data, valuelist[0])
+  //      createMap(json, data, valuelist[0])
     }
-}
