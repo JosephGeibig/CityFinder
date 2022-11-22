@@ -2,7 +2,7 @@
 //"type": "module"
 //}
 
-
+ 
 var width = 960;
 var height = 500;
 
@@ -39,50 +39,11 @@ var selected = undefined
 
 
 var pathToCsv2 = "data/State agg - no standard.csv"; //please note this csv doesnt have alaska
-var valuelist = ["Number of Cities",
-                         "Average 2020/2021 household income",
-                         "Historic Percent Change in Household Income 1984-2019",
-                         "Average Yealry Historic Percent Change in Income 1984-2019",
-                         "Minimum Wage", 
-                         "Average House Price 2020/2021",
-                         "Percent Change in Historic House Prices 2000-2019",
-                         "Average Yearly Percent Change in Housing Prices 2000-2019",
-                         "# of Violent Crime",
-                         "# of Property Crime",
-                         "Property Crime Per Capita",
-                         "Violent Crime Per Capita",
-                         "Total Crime Per Capita",
-                         "Pop",
-                         "Men",
-                         "Women",
-                         "VotingAge",
-                         "Employed",
-                         "Hispanic",
-                         "White",
-                         "Black",
-                         "Native",
-                         "Asian",
-                         "Pacific",
-                         "Average Income",
-                         "Income Per Capita",
-                         "Poverty",
-                         "ChildPoverty",
-                         "Professional",
-                         "Service",
-                         "Office",
-                         "Construction",
-                         "Production",
-                         "Drive",
-                         "Carpool",
-                         "Transit",
-                         "OtherTrans",
-                         "WorkAtHome",
-                         "MeanCommute",
-                         "PrivateWork",
-                         "SelfEmployed",
-                         "FamilyWork"
-                         ,"Unemployment",
-                         "Population"];
+
+
+//Put your hard-coded list in `constants.js` files to clean things up.
+//It is reachable by the variable `VARIABLE_NAMES`
+var valuelist = VARIABLE_NAMES;
         
 d3.dsv(",", pathToCsv2, function (d) {
   return {

@@ -24,7 +24,7 @@ Current color pallette (dark to light)
     
     
     <link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
-    <!-- need to change the icon to our first choropleth once it is complete
+    <!-- need to change the icon to our first choropleth once it is complete -->
 
 
 
@@ -35,6 +35,7 @@ Current color pallette (dark to light)
     <link href="https://fonts.googleapis.com/css?family=Roboto+Slab:400,100,300,700" rel="stylesheet" type="text/css" />
     <!-- Core theme CSS (includes Bootstrap)-->
     <link href="styles.css" rel="stylesheet" />
+    <script type = "text/javascript" src = 'constants.js'></script>
     
 </head>
         <!-- Favicon-->
@@ -138,9 +139,15 @@ Current color pallette (dark to light)
     </script>
     
     <br>
-    
+    <script type = "text/javascript" src = 'knn.js'></script>
     <section class = "content-section"> 
         <div class = "container">
+            <span>
+                Pick a state <select id="StateDropdown"></select>
+            </span>
+            <span>
+                Pick a city <select id="CityDropdown"></select>
+            </span>
             <p id = "knn"> Info on the knn</p>
             <br>
             <b> Above section needs to mention the following:</b>
@@ -153,11 +160,14 @@ Current color pallette (dark to light)
         </div>
     </section>
     
+
+    
     <script id = "knn" type = "text/javascript">
     
     
     
     </script>
+
     
     <br>
     
