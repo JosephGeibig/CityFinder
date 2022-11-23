@@ -588,6 +588,9 @@ d3.dsv(",", pathToCsv3, function (d) {
         current_citiess = data.filter(function(d){ return d.StateName == state});
         console.log(state)
         d3.select("#cDropdown").html("")
+        d3.select("#dashboard1").html("")
+        d3.select("#dashboard2").html("")
+        
 }
     function citydata(city){ 
     selectedcity = data.filter(function(d){return (d.StateName == state && d.CityName == city)})
