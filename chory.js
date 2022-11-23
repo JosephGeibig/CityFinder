@@ -576,17 +576,40 @@ d3.dsv(",", pathToCsv3, function (d) {
             .text(function (d) {
               return d.CityName;
             });
+        d3.select("#cDropdown").on("change", function(d){
+            citydata(d3.select(this).property("value"));
+        })
+        
     }
     if (state == undefined){
         current_citiess = data.filter(function(d){ return d.StateName == state});
         console.log(state)
         d3.select("#cDropdown").html("")
-
-        
-            
-        
 }
-    });
+    function citydata(city){ 
+    selectedcity = data.filter(function(d){return (d.StateName == state && d.CityName == city)})
+       console.log(selectedcity)
+        
+       
+        let varsee = d3.select("#variableDropdown").property("value");
+         console.log(varsee)
+        //selectedvar = data.filter(function(d){return parseFloat(d[varsee])}) 
+       //selectedvar = selectedcity.filter(function(d){return d[varsee]})
+        let datafilter = selectedcity.map(function(d){return {Variable: varsee, value:parseFloat(d[varsee])};
+                                                      })
+        console.log(datafilter[0])
+       // d3.select("#dashboard").append("options")
+         //   .data(datafilter)
+        
+        document.getElementById("dashboard1").innerHTML = datafilter[0].Variable;
+        document.getElementById("dashboard2").innerHTML = datafilter[0].value;
+        //console.log(selectedvar)
+}
+    
+          
+});
+    
+    
 };
 });
  
