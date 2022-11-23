@@ -242,6 +242,8 @@ d3.dsv(",", pathToCsv2, function (d) {
             // event listener for the dropdown. Update choropleth and legend when selection changes. Call createMapAndLegend() with required arguments.
         d3.select("#variableDropdown").on("change", function (d) {
             svg.html("")
+            d3.select("#dashboard1").html("")
+            d3.select("#dashboard2").html("")
             createMap(json, data, d3.select(this).property("value"));
     });
         // run creation function on NumCities
@@ -579,6 +581,7 @@ d3.dsv(",", pathToCsv3, function (d) {
         d3.select("#cDropdown").on("change", function(d){
             citydata(d3.select(this).property("value"));
         })
+        citydata(current_citiess[0].CityName)
         
     }
     if (state == undefined){
@@ -589,8 +592,9 @@ d3.dsv(",", pathToCsv3, function (d) {
     function citydata(city){ 
     selectedcity = data.filter(function(d){return (d.StateName == state && d.CityName == city)})
        console.log(selectedcity)
-        
-       
+        //var varsee = []
+        //d3.select("#variableDropdown").on("change", function (d) {
+        //   let varsee = d3.select(this).property("value")})
         let varsee = d3.select("#variableDropdown").property("value");
          console.log(varsee)
         //selectedvar = data.filter(function(d){return parseFloat(d[varsee])}) 
