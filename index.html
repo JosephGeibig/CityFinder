@@ -43,13 +43,13 @@ Current color pallette (dark to light)
 <!--</head>-->
 
 <body>
-<section class = "content-section"> 
-    <div class = "container">
-        <div class = "col-lg-10"> 
-            <h1 id = "title" class = "heading"> City Quality of Life</h1>
+    
+    <header class="masthead">
+        <div class="container">
+            <div id = "head" class="masthead-heading text-uppercase">City Quality of Life</div>
         </div>
-    </div>
- </section>
+    </header>
+
     
     <section class = "content-section"> 
         <div class = "container">
@@ -96,7 +96,7 @@ Current color pallette (dark to light)
     
     
     <!-- Script to hold the main choropleth visualization-->
-    <section class = "content-section"> 
+    <section class = "content-section choro_bg"> 
         <div class = "container">
     <span>
     Which variable? <select id="variableDropdown"></select>
@@ -109,10 +109,9 @@ Current color pallette (dark to light)
         <button id="reset">Reset</button>
     </div>
 -->
-    <script type = "text/javascript" src = 'chory.js'>
-//    console.log(data)
-    </script>
-     
+            <script type = "text/javascript" src = 'chory.js'  >
+
+            </script>
         </div>
     </section>
 
@@ -122,7 +121,7 @@ Current color pallette (dark to light)
     <section class = "content-section"> 
         <div class = "container">
                    
-            <p id = "dash"> dashboard text</p>
+            <p id = "dash"> If you want to select multiple cities, hold command on mac or control on windows to allow the selection of multiple cities. </p>
             <br>
             <b> Above section needs to mention the following:</b>
             <br>
@@ -131,7 +130,7 @@ Current color pallette (dark to light)
             <b> How to use dashboard (if necessary)</b>
             <br>
             <span>
-            Select City: <select id="cDropdown"></select>
+            Select City: <select multiple id="cDropdown"></select>
         </span>
             <p>Data for Selected City:</p>
             <span>Selected Variable:</span><p id = "dashboard1"></p>
@@ -199,5 +198,16 @@ Current color pallette (dark to light)
             <p id = "summ"> Summary text</p>
         </div>
     </section>
+    
+    
+    <footer class = "footer">
+        <section class = "content-section">
+        
+            <div class = "container"> content </div>
+        
+        </section>
+        
+    </footer>
+    
     
 </body>

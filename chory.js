@@ -10,7 +10,7 @@ var height = 500;
 
 var lowColor = '#DEEDCF';
 var highColor = '#0A2F51';
-
+ 
 
 
 
@@ -31,7 +31,8 @@ var thousandsformat = d3.format(",");
 var svg = d3.select("body")
         .append("svg")
         .attr("width", width)
-        .attr("height", height);
+        .attr("height", height)
+        .style("background-color", "#485d6a");
 
 
 // variables for later
