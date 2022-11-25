@@ -98,9 +98,23 @@ Current color pallette (dark to light)
     <!-- Script to hold the main choropleth visualization-->
     <section class = "content-section choro_bg"> 
         <div class = "container">
-    <span>
-    Which variable? <select id="variableDropdown"></select>
-    </span>
+    <div>
+    Which variable? 
+        <select id="variableDropdown" class = "custom-select"></select>
+    </div>
+            
+    <script>
+        
+//        Dashboard code
+    
+        
+        
+        
+        
+    
+            
+    </script>
+
 <!-- zoom buttons 
     <br> <br>
     <div>
@@ -130,7 +144,7 @@ Current color pallette (dark to light)
             <b> How to use dashboard (if necessary)</b>
             <br>
             <span>
-            Select City: <select multiple id="cDropdown"></select>
+            Select City: <select multiple id="cDropdown" ></select>
         </span>
             <p>Data for Selected City:</p>
             <span>Selected Variable:</span><p id = "dashboard1"></p>
@@ -150,12 +164,17 @@ Current color pallette (dark to light)
     <script type = "text/javascript" src = 'knn.js'></script>
     <section class = "content-section"> 
         <div class = "container">
-            <span>
-                Pick a state <select id="StateDropdown"></select>
-            </span>
-            <span>
-                Pick a city <select id="CityDropdown"></select>
-            </span>
+            <div>
+                Pick a state 
+                <select id="StateDropdown" ></select>
+            </div>
+<!--            <script src = "dropdown.js"> </script>-->
+
+            <div>
+                Pick a city <select id="CityDropdown" ></select>
+            </div>
+<!--            <script src = "dropdown.js"> </script>-->
+            
             <p id = "knn"> Info on the knn</p>
             <br>
             <b> Above section needs to mention the following:</b>
