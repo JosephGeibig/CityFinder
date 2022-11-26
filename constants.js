@@ -1,7 +1,10 @@
 
 //This file is reachable from all other js files (you have access to the variables in here)
+var SELECTED_STATE = null;
+var SELECTED_CITY = null;
 
 var UNIQUE_CITIES = [
+    'None',
     'Alabama',
     'Arkansas',
     'Arizona',
@@ -25,6 +28,7 @@ var UNIQUE_CITIES = [
     'Michigan',
     'Minnesota',
     'Missouri',
+    'Mississippi',
     'North Carolina',
     'Nebraska',
     'New Hampshire',

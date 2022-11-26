@@ -413,14 +413,14 @@ d3.dsv(",", pathToCsv2, function (d) {
                     .style("stroke", "transparent")
 //                    .style("fill", )
             selected = undefined;
-            dashdrop(selected)
+            dashdrop(selected);
             clicked = "false";
             
 //                export {clicked, selected}
                 }
     }
         
-        
+    //added variable to hold this -Josh
    svg.selectAll("path")
             .data(json.features)
             .enter()
@@ -443,7 +443,8 @@ d3.dsv(",", pathToCsv2, function (d) {
 //        on double click code –– cancels the click selection
             .on("dblclick",dubclick)
         
-        
+        // Call functio from knn.js -Josh
+    add_nn_points(svg, projection, 'None');
 // legend
         
         // I have genuinely no idea how to fix this, but it would be a good add. Code pulled form choropleth_example.js
@@ -501,6 +502,7 @@ d3.dsv(",", pathToCsv2, function (d) {
     }
     });
 function dashdrop(state){
+
 var pathToCsv3 = "data/dns4.csv";
 d3.dsv(",", pathToCsv3, function (d) {
         return {
