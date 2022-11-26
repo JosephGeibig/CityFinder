@@ -164,11 +164,11 @@ address {
 }
 
 a {
-  color: #ff8200;
+  color: #FEDE00;
   text-decoration: underline;
 }
 a:hover {
-  color: #ff8322;
+  color: #FEDE00;
 }
 
 a:not([href]):not([class]), a:not([href]):not([class]):hover {

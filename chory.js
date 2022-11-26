@@ -280,7 +280,7 @@ d3.dsv(",", pathToCsv2, function (d) {
         var lowColor = '#91DFDA';
         var highColor = '#00354C';
         var midColor = "#3195BE";
-        var pickColor = "#ff8200";
+        var pickColor = "#FEDE00";
         var maxx1 = d3.max(dataray);
         var midd1 = d3.median(dataray)
         var minn1 = d3.min(dataray);
