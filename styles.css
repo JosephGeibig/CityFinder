@@ -164,11 +164,11 @@ address {
 }
 
 a {
-  color: #ffc800;
+  color: #ff8200;
   text-decoration: underline;
 }
 a:hover {
-  color: #cca000;
+  color: #ff8322;
 }
 
 a:not([href]):not([class]), a:not([href]):not([class]):hover {
@@ -1736,9 +1736,11 @@ header.masthead .masthead-heading {
   color: rgba(255, 255, 255, 0.7);
 }
 
+/*
 a {
   color: rgb(241 , 196 , 15);
 }
+*/
 
 /*d3-tip */
 .d3-tip {

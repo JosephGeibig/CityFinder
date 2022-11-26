@@ -65,19 +65,19 @@ Current color pallette (dark to light)
     </section>
     
     
-    <br>
-    
     
     <section class = "content-section"> 
         <div class = "container">
             
-            <p id = "instructions"> To most effectively use our tool, it is recommended that users do a  </p>
-            <br>
-            <b> Above section needs to mention the following:</b>
-            <br>
-            <b> How to use the below choropleth / instructions</b>
-            <br>
-            <b> How each is calculated (maybe mention later, idk)  </b>
+            <p id = "instructions"> Our tool is presented through 3 visualizations.   </p>
+            <p> <b>–––</b> First is a choropleth map showing the average of all cities throughout the state for the variable you would like to see. If you would like to see the specific value for each state, you can hover over them to see the average of all cities in that state for the selected metric. 
+            </p>
+            <p> <b>–––</b> If you find a variable that you are interested in, you can click on a state in the choropleth to select it. Then, below the choropleth you will find a selection windows for the cities in the state. You can select one or more cities in this selection window to compare the variable in the choropleth between each city. 
+            </p>
+            <p> <b>–––</b> Lastly, once you have examined the other two visualizations and have determined a city that has a lot of the factors which you would like for your ideal city, you can go to our KNN model at the bottom, which is shown as a map with all cities displayed. If you click on a city, the 5 most similar cities in all metrics are highlighted on the map. If you would like to increase this number, you can in the entry box above the visualization. 
+            </p>
+            
+    
             
         </div>
     </section>
@@ -134,15 +134,11 @@ Current color pallette (dark to light)
     
     <section class = "content-section"> 
         <div class = "container">
-                   
+            <p>If you want to see the information on any specific cities, you can select a state above by clicking on it. This will add the cities to the below dropdown. You can select one or multiple cities to compare in the visualizaiton below.</p>       
             <p id = "dash"> If you want to select multiple cities, hold command on mac or control on windows to allow the selection of multiple cities. </p>
+            <p> If you would like to select a different state, double click on the selected on in the choropleth above. The selected state should have an orange border around it. </p>
             <br>
-            <b> Above section needs to mention the following:</b>
-            <br>
-            <b> What data is represented in the dashboard</b>
-            <br>
-            <b> How to use dashboard (if necessary)</b>
-            <br>
+           
             <span>
             Select City: <select multiple id="cDropdown" ></select>
         </span>
@@ -200,13 +196,18 @@ Current color pallette (dark to light)
     
     <section class = "content-section"> 
         <div class = "container">
-            <p id = "data"> Information on the data  text</p>
-            <br>
-            <b> Above section needs to mention the following:</b>
-            <br>
-            <b> where the data comes from</b>
-            <br>
-            <b> How we implemented it  </b>
+            <p id = "data"> The data we used came from the following sources:</p>
+            <ul>
+                <li><b>Housing Prices: </b><a href= "https://www.zillow.com/research/data/">Zillow's Publically Available Data Repositories</a> </li>
+                <li><b>Economic Data: </b> <a href = "https://fred.stlouisfed.org/">The US Federal Reserve </a></li>
+                <li><b>Crime Data: </b><a href = "https://crime-data-explorer.app.cloud.gov/pages/downloads">The US FBI</a></li>
+                <li><b>Census Data: </b><a href = "https://www.kaggle.com/datasets/zusmani/us-census-2020">Gathered from Kaggle</a>, Originally gathered from publically available <a href = "https://www.kaggle.com/datasets/muonneutrino/us-census-demographic-data?select=acs2015_census_tract_data.csv"> Census data</a> provided by the US Census Bureau</li>
+                <li><b>Geographic Locations of Cities:</b> Gathered following Collective Commons License 4 from <a href = "https://simplemaps.com/data/us-cities">simple maps </a></li>
+            
+            
+            
+            </ul>
+            
         </div>
     </section>
     
