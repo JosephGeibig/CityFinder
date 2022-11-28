@@ -193,9 +193,9 @@ function add_nn_points(svg, projection, state) {
                     return p;
                 })
                 .attr("r", 3)
-                .style("fill", "red")
-                .style("stroke", "red")
-                .style("opacity", 0.3)
+                .style("fill", "#FEDE00")
+                .style("stroke", "#FEDE00")
+                .style("opacity", 0.8)
                 .on('mouseover', nn_mouseOver)
                 .on('mouseleave', nn_mouseLeave)
                 .call(nn_tip);
