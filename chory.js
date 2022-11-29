@@ -600,9 +600,11 @@ d3.dsv(",", pathToCsv2, function (d) {
 
         function getCitiesByID(ids) {
             let cities = [];
+            let i = 1;
             for( id in ids) {
                 let new_city = getCityByID(ids[id]);
-                cities.push(new_city);
+                cities.push({'rank':i, 'city':new_city});
+                i = i + 1;
             }
             // nndata.forEach(function(d) {
             //     if(d.city_id in ids) {
@@ -659,8 +661,8 @@ d3.dsv(",", pathToCsv2, function (d) {
             .attr('class', 'd3-tip')
             .attr('offset', [-1, 0])
             .html(function (d) {
-                return `<strong>City: </strong><span class='details'>${d.city_state}<br></span>
-                <strong>Similar To: </strong><span class='details'>${SELECTED_CITY}<br/></span>`
+                return `<strong>City: </strong><span class='details'>${d.city.city_state}<br></span>
+                <strong>Ranking: </strong><span class='details'>${d.rank}<br/></span>`
     //                    <strong>Number of Users: </strong><span class='details'>${d.users}<br/></span>
     //                    <strong>Avg Rating: </strong><span class='details'>${d.rating}<br/></span>`
             });
@@ -694,12 +696,12 @@ d3.dsv(",", pathToCsv2, function (d) {
                 .append("circle")
                 .attr('id', current_cities_plotted)
                 .attr("cx", function(d) {
-                    let p = projection([d.lng, d.lat])[0];
+                    let p = projection([d.city.lng, d.city.lat])[0];
                     //console.log("x: " + p);
                     return p;
                 })
                 .attr("cy", function(d) {
-                    let p = projection([d.lng, d.lat])[1];
+                    let p = projection([d.city.lng, d.city.lat])[1];
                     //console.log("y: " + p);
                     return p;
                 })
