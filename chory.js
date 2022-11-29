@@ -637,7 +637,7 @@ d3.dsv(",", pathToCsv2, function (d) {
             let cty = getCity(city_name, SELECTED_STATE);
             let nn = [];
             // console.log(cty);
-            let indexes = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10'];
+            let indexes = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12', '13', '14', '15', '16', '17', '18', '19', '20'];
             for(let i = 0; i < n; i++) {
                 let v = cty[indexes[i]];
                 nn.push(v);
