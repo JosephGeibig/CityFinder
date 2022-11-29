@@ -113,10 +113,19 @@ Current color pallette (dark to light)
                 Pick a city <select id="CityDropdown" ></select>
             </div>
         <br>
-        <div class="slidecontainer">
-          <label for = "myRange"> How many cities?</label>
-            <br>
-          <input type="range" min="1" max="100" value="50" class="slider" id="myRange" name = "myRange">
+        <div class="slider">
+            <label for="fader">Number of Cities  </label>
+            <p>
+			<input id="slider" type="range" min="0" max="25" step="1" value="0" orient="vertical" list = "volsettings">
+            <datalist id="volsettings">
+                <option>0</option>
+                <option>5</option>
+                <option>10</option>
+                <option>15</option>
+                <option>20</option>
+                <option>25</option>
+            </datalist>
+            </p>
         </div>
     </div>
             
