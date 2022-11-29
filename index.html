@@ -97,10 +97,27 @@ Current color pallette (dark to light)
     
     <!-- Script to hold the main choropleth visualization-->
     <section class = "content-section choro_bg"> 
-        <div class = "container">
+        <div class = "container choro_bg">
     <div>
     Which variable? 
         <select id="variableDropdown" class = "custom-select"></select>
+        <br> <br>
+    <div><b><u>KNN</u></b></div><br>
+    <div>
+                Pick a state 
+                <select id="StateDropdown" ></select>
+            </div>
+<!--            <script src = "dropdown.js"> </script>-->
+
+            <div>
+                Pick a city <select id="CityDropdown" ></select>
+            </div>
+        <br>
+        <div class="slidecontainer">
+          <label for = "myRange"> How many cities?</label>
+            <br>
+          <input type="range" min="1" max="100" value="50" class="slider" id="myRange" name = "myRange">
+        </div>
     </div>
             
     <script>
@@ -123,7 +140,7 @@ Current color pallette (dark to light)
         <button id="reset">Reset</button>
     </div>
 -->
-            <script type = "text/javascript" src = 'chory.js'  >
+            <script type = "text/javascript" src = 'chory.js' class = "choro_bg" >
 
             </script>
         </div>
@@ -160,15 +177,7 @@ Current color pallette (dark to light)
     <script type = "text/javascript" src = 'knn.js'></script>
     <section class = "content-section"> 
         <div class = "container">
-            <div>
-                Pick a state 
-                <select id="StateDropdown" ></select>
-            </div>
-<!--            <script src = "dropdown.js"> </script>-->
-
-            <div>
-                Pick a city <select id="CityDropdown" ></select>
-            </div>
+        
 <!--            <script src = "dropdown.js"> </script>-->
             <br>
             <p id = "knn"> K Nearest Neighbors <b>(KNN)</b> models are used to find the closest k neighbors to a selected point based on the distance between variables.  <i> <b>THSI NEEDS TO BE UPDATED</b></i> </p>

@@ -5,8 +5,8 @@
 //}
 
  
-var width = 960;
-var height = 500;
+var width = 1500;
+var height = 680;
 
 var lowColor = '#DEEDCF';
 var highColor = '#0A2F51';
@@ -17,7 +17,7 @@ var highColor = '#0A2F51';
 // D3 Projection
 var projection = d3.geoAlbersUsa()
 .translate([width / 2, height / 2]) // translate to center of screen
-.scale([1000]); // scale things down so see entire US
+.scale([1150]); // scale things down so see entire US
 
 // definte the state splitting
 var path = d3.geoPath() 
