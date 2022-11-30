@@ -810,7 +810,13 @@ d3.dsv(",", pathToCsv3, function (d) {
         })
         d3.select("#button1").on("click", function(d){
             //console.log(totalcity)
+            d3.select("#dasboard").html("")
             citydata(totalcity)
+        })
+        d3.select("#button2").on("click", function(d){
+            //console.log(totalcity)
+            d3.select("#dasboard").html("")
+            totalcity = [];
         })
        //citydata(current_citiess[0].CityName)
         
@@ -821,6 +827,7 @@ d3.dsv(",", pathToCsv3, function (d) {
         d3.select("#cDropdown").html("")
         d3.select("#dashboard1").html("")
         d3.select("#dashboard2").html("")
+        d3.select("#dasboard").html("")
         totalcity = [];
 }
     
@@ -835,21 +842,56 @@ d3.dsv(",", pathToCsv3, function (d) {
          console.log(varsee)
         //selectedvar = data.filter(function(d){return parseFloat(d[varsee])}) 
        //selectedvar = selectedcity.filter(function(d){return d[varsee]})
-        let datafilter = selectedcity.map(function(d){return {Variable: varsee, value:parseFloat(d[varsee])};
+        let datafilter = selectedcity.map(function(d){return {name: d.CityName, value:parseFloat(d[varsee])};
                                                       })
-        console.log(datafilter)
+        
        // d3.select("#dashboard").append("options")
          //   .data(datafilter)
-        
+        //const datatab = []
+       // for (var i = 0; i < datafilter.length; i++)
+         //   datatab.push({"name": datafilter[i].Variable, "value": datafilter[i].value})
+            //datatab.push = datafilter[i].value
+        //
+        console.log(datafilter)
+        //console.log(datatab)
+        var max = -100
+        for (var i = 0; i < datafilter.length; i++){
+            if (datafilter[i].value > max)
+                max = datafilter[i].value
+        }
+        console.log(max)
+        var xb = d3.scaleLinear().range([0, 900])
+        var yb = d3.scaleBand().range([200,0])
+        xb.domain([0, max]);
+        //datafilter = datafilter.slice(datafilter.length - , datafilter.length);
+        console.log(datafilter)
+        yb.domain(datafilter.map(function(d){return d.name})).padding(.2);
         document.getElementById("dashboard1").innerHTML = datafilter[0].Variable;
         
         document.getElementById("dashboard2").innerHTML = datafilter[0].value
-            
-            var grap = svg.append("g").attr("id", "dashboard2").selectAll("rect")
-                        .data(datafilter[0])
-                        .enter()
-                        .append("rect")
-                        .text("Hello")
+        
+        let grap = d3.select("#dasboard").append("g").attr("id", "graph").attr("transform", "translate(" +100+ ", 0 )")               
+        grap.selectAll("rect")
+            .data(datafilter)
+            .enter()
+            .append("rect")
+            .attr("x", xb(0))
+            .attr("y", function(d){
+            return yb(d.name)
+        })
+            .attr("width", function(d){
+            return xb(d.value)
+        })
+            .attr("height", yb.bandwidth()-1)
+            .attr("fill", "white")
+        grap.append("g")
+            .call(d3.axisLeft(yb))
+        grap.append("g").attr("transform", "translate(0, " +200+ ")")
+            .call(d3.axisBottom(xb))
+        grap.append("text")
+            .attr("x", -100)
+            .attr("y", 20)
+            .text("Cities")
         //plotty.append("text").text("Hello")
                       //  .attr("y", function(d){
                       //      return 
