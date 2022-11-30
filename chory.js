@@ -13,7 +13,6 @@ var highColor = '#0A2F51';
  
 
 
-
 // D3 Projection
 var projection = d3.geoAlbersUsa()
 .translate([width / 2, height / 2]) // translate to center of screen
@@ -122,7 +121,17 @@ d3.dsv(",", pathToCsv2, function (d) {
         7: +d['7'],
         8: +d['8'],
         9: +d['9'],
-        10: +d['10']
+        10: +d['10'],
+        11: +d['11'],
+        12: +d['12'],
+        13: +d['13'],
+        14: +d['14'],
+        15: +d['15'],
+        16: +d['16'],
+        17: +d['17'],
+        18: +d['18'],
+        19: +d['19'],
+        20: +d['20']
         }
         
     }).then(function (nndata) {
@@ -274,10 +283,232 @@ d3.dsv(",", pathToCsv2, function (d) {
             d3.select("#dashboard1").html("")
             d3.select("#dashboard2").html("")
             createMap(json, data, d3.select(this).property("value"));
+            updateCityDropdown(SELECTED_CITY);
+            
+            //Test if resetting these helps
+            clicked = "false"
+            selected = undefined
+            
     });
         // run creation function on NumCities
         createMap(json, data, valuelist[0])
+        const nn_tip = d3.tip()
+        .attr("id", "nn_tooltip")
+        .attr('class', 'd3-tip')
+        .attr('offset', [-1, 0])
+        .html(function (d) {
+            return `<strong>City: </strong><span class='details'>${d.city.city_state}<br></span>
+            <strong>Ranking: </strong><span class='details'>${d.rank}<br/></span>`
+        //                    <strong>Number of Users: </strong><span class='details'>${d.users}<br/></span>
+        //                    <strong>Avg Rating: </strong><span class='details'>${d.rating}<br/></span>`
+        });
+    let nn_mouseOver = function(d) {
+        d3.select(this).attr('r', 8).style('stroke', 'black');
+        
+        nn_tip.show(d, this);
+    }
 
+    let nn_mouseLeave = function(d) {
+        d3.select(this).attr('r', 5).style('stroke', function(d) {
+            if(d.rank == 1) {
+                return 'red';
+            }
+            return "#FEDE00";
+        });
+
+        nn_tip.hide(d);
+    }
+    let nn_margin = {top: 60, right: 50, bottom: 50, left: 100},
+        nn_width = 800 - nn_margin.left - nn_margin.right,
+        nn_height = 400 - nn_margin.top - nn_margin.bottom;
+
+    //Create dropdown to select the state
+    d3.select("#StateDropdown")
+    .selectAll("options")
+    .data(UNIQUE_CITIES).enter()
+    .append("option")
+    .text(function (d) {
+        return d;
+    });
+
+    //When the state selection changes, run the method to update the list of cities
+    // d3.select("#StateDropdown").on("change", function(d) {
+    //     updateCityDropdown(d3.select(this).property("value"));
+    // })
+
+    //Keeps track of the current selection of cities
+    let current_cities = [];
+    let current_city_id = 'current_cities_selection';
+    let current_city_id_ = '#' + current_city_id;
+
+
+    //This function clears out the old dropdown and replaces it with the new cities corresponding to the selected state
+    function updateCityDropdown(state) {
+        SELECTED_STATE = state;
+        current_cities = nndata.filter(g => g.state == SELECTED_STATE);
+        if(state == null) {
+            getNearestCities(null);
+        }
+        //console.log(current_cities)
+        let c = [{'city':'None'}];
+        current_cities.forEach(function(d) {
+            c.push(d);
+        })
+        //console.log(c);
+        d3.selectAll(current_city_id_).remove();
+        let selection = d3.select("#CityDropdown")
+            .selectAll("options")
+            .data(c);
+        
+        selection.enter()
+            .append("option")
+            .attr('id', current_city_id)
+            .merge(selection)
+            .text(function (d) {
+                return d.city;
+            });
+        
+    }
+
+    //Initialize the city dropdown with cities from the first state (Alabama)
+    updateCityDropdown('None');
+    //getNearestCities(null);
+
+    function getCity(city, state) {
+        return nndata.filter(g => g.state == state & g.city == city)[0];
+    
+    }
+
+    function getCityByID(id) {
+        return nndata.filter(g => g.city_id == id)[0];
+    }
+
+    function getCitiesByID(ids) {
+        let cities = [];
+        let i = 1;
+        for( id in ids) {
+            let new_city = getCityByID(ids[id]);
+            //console.log(new_city);
+
+            if(new_city.lat == undefined || new_city.lng == undefined) {
+                console.log("Undefined");
+                console.log(new_city);
+            }
+            cities.push({'rank':i, 'city':new_city});
+            i = i + 1;
+        }
+        // nndata.forEach(function(d) {
+        //     if(d.city_id in ids) {
+        //         cities.push(d)
+        //     }
+        // });
+        return cities.reverse();
+    }
+
+     //When the city selection changes
+    d3.select("#CityDropdown").on("change", function(d) {
+        SELECTED_CITY = d3.select(this).property("value");
+        let num = d3.select('#slider').property("value");
+        //console.log(num);
+        getNearestCities(SELECTED_CITY, num);
+    })
+
+    d3.select('#slider').on("change", function(d) {
+        getNearestCities(SELECTED_CITY, d3.select(this).property("value"));
+    })
+    
+    function getNearestCities(city_name, n = 5) {
+        if (n > 20) {
+            n = 20;
+        }
+        if (n < 0) {
+            n = 0;
+        }
+        if (city_name == null) {
+            updateCityPoints(svg, null);
+            return null;
+        }
+        //console.log(n);
+        // let e = document.getElementById("CityDropdown");
+        // let city_name = e.value;
+
+        let cty = getCity(city_name, SELECTED_STATE);
+        //console.log(cty);
+        let nn = [];
+        // console.log(cty);
+        let indexes = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12', '13', '14', '15', '16', '17', '18', '19', '20'];
+        for(let i = 0; i < n; i++) {
+            let v = cty[indexes[i]];
+            
+            nn.push(v);
+        }
+        // console.log("NN");
+        // console.log(nn);
+        let cities = getCitiesByID(nn);
+        
+        
+
+        updateCityPoints(svg, cities);
+
+        //nn_cities = nndata.filter(g => g.city_id == 0);
+        //console.log(nn_cities);
+    }
+
+    //getNearestCities(0);
+
+    
+    
+    let current_cities_plotted = "current_cities_plotted_1234567";
+    let current_cities_plotted_ = '#' + current_cities_plotted;
+
+    
+
+
+
+    function updateCityPoints(svg, cities) {
+        // console.log("update city points");
+        d3.selectAll(current_cities_plotted_).remove();
+        // var projection = d3.geoAlbersUsa()
+        //     .translate([width / 2, height / 2]) // translate to center of screen
+        //     .scale([1000]); // scale things down so see entire US
+        if(cities == null) {
+            return null;
+        }
+    
+        svg
+            .selectAll("circle")
+            .data(cities)
+            .enter()
+            .append("circle")
+            .attr('id', current_cities_plotted)
+            .attr("cx", function(d) {
+                let p = projection([d.city.lng, d.city.lat])[0];
+                //console.log("x: " + p);
+                return p;
+            })
+            .attr("cy", function(d) {
+                let p = projection([d.city.lng, d.city.lat])[1];
+                //console.log("y: " + p);
+                return p;
+            })
+            .attr("r", 5)
+            .style("fill", function(d) {
+                if(d.rank == 1) {
+                    return 'red';
+                }
+                return "#FEDE00";
+            })
+            .style("stroke", function(d) {
+                if(d.rank == 1) {
+                    return 'red';
+                }
+                return "#FEDE00";
+            })
+            .style("opacity", 0.8)
+            .on('mouseover', nn_mouseOver)
+            .on('mouseleave', nn_mouseLeave)
+            .call(nn_tip);
+    }
         
     function createMap(json, data, varselect) {
         
@@ -347,8 +578,11 @@ d3.dsv(",", pathToCsv2, function (d) {
             .transition()
             .duration(200)
             .style("opacity",.5)
-        
+
+        //Testing this out
+        if(selected != d.properties.name) {
         tip.show(d, this);
+        }
         
         
         d3.select(this)
@@ -380,7 +614,7 @@ d3.dsv(",", pathToCsv2, function (d) {
                     .duration(200)
                     .style("opacity",.8)
 
-
+       
 
                 tip.hide(d);
 
@@ -416,6 +650,8 @@ d3.dsv(",", pathToCsv2, function (d) {
 //        export clicked
         let oneclick = function(d) {
             if (clicked === "false"){
+                //Testing this out
+                tip.hide(d);
             clicked = "true";
             selected = d.properties.name;
                 dashdrop(selected)
@@ -436,6 +672,9 @@ d3.dsv(",", pathToCsv2, function (d) {
         let dubclick = function(d) {
             if (clicked === "true" && selected === d.properties.name){
                 
+                
+
+
                 d3.select(this)
                     .transition()
                     .duration(200)
@@ -534,185 +773,7 @@ d3.dsv(",", pathToCsv2, function (d) {
    //////////////////////////////////////////////////////////////////////////////////////////
    //////////////////////////////////////////////////////////////////////////////////////////
    //////////////////////////////////////////////////////////////////////////////////////////
-        let nn_margin = {top: 60, right: 50, bottom: 50, left: 100},
-            nn_width = 800 - nn_margin.left - nn_margin.right,
-            nn_height = 400 - nn_margin.top - nn_margin.bottom;
-
-        //Create dropdown to select the state
-        d3.select("#StateDropdown")
-        .selectAll("options")
-        .data(UNIQUE_CITIES).enter()
-        .append("option")
-        .text(function (d) {
-            return d;
-        });
-
-        //When the state selection changes, run the method to update the list of cities
-        // d3.select("#StateDropdown").on("change", function(d) {
-        //     updateCityDropdown(d3.select(this).property("value"));
-        // })
-
-        //Keeps track of the current selection of cities
-        let current_cities = [];
-        let current_city_id = 'current_cities_selection';
-        let current_city_id_ = '#' + current_city_id;
-
-
-        //This function clears out the old dropdown and replaces it with the new cities corresponding to the selected state
-        function updateCityDropdown(state) {
-            SELECTED_STATE = state;
-            current_cities = nndata.filter(g => g.state == SELECTED_STATE);
-            if(state == null) {
-                getNearestCities(null);
-            }
-            //console.log(current_cities)
-            let c = [{'city':'None'}];
-            current_cities.forEach(function(d) {
-                c.push(d);
-            })
-            //console.log(c);
-            d3.selectAll(current_city_id_).remove();
-            let selection = d3.select("#CityDropdown")
-                .selectAll("options")
-                .data(c);
-            
-            selection.enter()
-                .append("option")
-                .attr('id', current_city_id)
-                .merge(selection)
-                .text(function (d) {
-                    return d.city;
-                });
-            
-        }
-
-        //Initialize the city dropdown with cities from the first state (Alabama)
-        updateCityDropdown('None');
-
-        function getCity(city, state) {
-            return nndata.filter(g => g.state == state & g.city == city)[0];
         
-        }
-
-        function getCityByID(id) {
-            return nndata.filter(g => g.city_id == id)[0];
-        }
-
-        function getCitiesByID(ids) {
-            let cities = [];
-            let i = 1;
-            for( id in ids) {
-                let new_city = getCityByID(ids[id]);
-                cities.push({'rank':i, 'city':new_city});
-                i = i + 1;
-            }
-            // nndata.forEach(function(d) {
-            //     if(d.city_id in ids) {
-            //         cities.push(d)
-            //     }
-            // });
-            return cities;
-        }
-
-         //When the city selection changes
-        d3.select("#CityDropdown").on("change", function(d) {
-            SELECTED_CITY = d3.select(this).property("value")
-            getNearestCities(SELECTED_CITY);
-        })
-        
-        function getNearestCities(city_name, n = 5) {
-            if (n > 10) {
-                n = 10;
-            }
-            if (n < 0) {
-                n = 0;
-            }
-            if (city_name == null) {
-                updateCityPoints(svg, null);
-                return null;
-            }
-            // let e = document.getElementById("CityDropdown");
-            // let city_name = e.value;
-
-            let cty = getCity(city_name, SELECTED_STATE);
-            let nn = [];
-            // console.log(cty);
-            let indexes = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12', '13', '14', '15', '16', '17', '18', '19', '20'];
-            for(let i = 0; i < n; i++) {
-                let v = cty[indexes[i]];
-                nn.push(v);
-            }
-            // console.log("NN");
-            // console.log(nn);
-            let cities = getCitiesByID(nn);
-            // console.log("Cities");
-            // console.log(cities);
-
-            updateCityPoints(svg, cities);
-
-            //nn_cities = nndata.filter(g => g.city_id == 0);
-            //console.log(nn_cities);
-        }
-
-        //getNearestCities(0);
-
-        const nn_tip = d3.tip()
-            .attr("id", "nn_tooltip")
-            .attr('class', 'd3-tip')
-            .attr('offset', [-1, 0])
-            .html(function (d) {
-                return `<strong>City: </strong><span class='details'>${d.city.city_state}<br></span>
-                <strong>Ranking: </strong><span class='details'>${d.rank}<br/></span>`
-    //                    <strong>Number of Users: </strong><span class='details'>${d.users}<br/></span>
-    //                    <strong>Avg Rating: </strong><span class='details'>${d.rating}<br/></span>`
-            });
-        
-        let current_cities_plotted = "current_cities_plotted_1234567";
-        let current_cities_plotted_ = '#' + current_cities_plotted;
-
-        let nn_mouseOver = function(d) {
-            nn_tip.show(d);
-        }
-
-        let nn_mouseLeave = function(d) {
-            nn_tip.hide(d);
-        }
-
-
-
-        function updateCityPoints(svg, cities) {
-            // console.log("update city points");
-            d3.selectAll(current_cities_plotted_).remove();
-            // var projection = d3.geoAlbersUsa()
-            //     .translate([width / 2, height / 2]) // translate to center of screen
-            //     .scale([1000]); // scale things down so see entire US
-            if(cities == null) {
-                return null;
-            }
-            svg
-                .selectAll("circle")
-                .data(cities)
-                .enter()
-                .append("circle")
-                .attr('id', current_cities_plotted)
-                .attr("cx", function(d) {
-                    let p = projection([d.city.lng, d.city.lat])[0];
-                    //console.log("x: " + p);
-                    return p;
-                })
-                .attr("cy", function(d) {
-                    let p = projection([d.city.lng, d.city.lat])[1];
-                    //console.log("y: " + p);
-                    return p;
-                })
-                .attr("r", 3)
-                .style("fill", "#FEDE00")
-                .style("stroke", "#FEDE00")
-                .style("opacity", 0.8)
-                .on('mouseover', nn_mouseOver)
-                .on('mouseleave', nn_mouseLeave)
-                .call(nn_tip);
-        }
     
 
 
