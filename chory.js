@@ -348,7 +348,7 @@ d3.dsv(",", pathToCsv2, function (d) {
             .duration(200)
             .style("opacity",.5)
         
-        tip.show(d);
+        tip.show(d, this);
         
         
         d3.select(this)
@@ -821,7 +821,7 @@ d3.dsv(",", pathToCsv3, function (d) {
         d3.select("#cDropdown").html("")
         d3.select("#dashboard1").html("")
         d3.select("#dashboard2").html("")
-        
+        totalcity = [];
 }
     
     function citydata(city){ 
@@ -837,12 +837,21 @@ d3.dsv(",", pathToCsv3, function (d) {
        //selectedvar = selectedcity.filter(function(d){return d[varsee]})
         let datafilter = selectedcity.map(function(d){return {Variable: varsee, value:parseFloat(d[varsee])};
                                                       })
-        console.log(datafilter[0])
+        console.log(datafilter)
        // d3.select("#dashboard").append("options")
          //   .data(datafilter)
         
         document.getElementById("dashboard1").innerHTML = datafilter[0].Variable;
-        document.getElementById("dashboard2").innerHTML = datafilter[0].value;
+        //document.getElementById("dashboard2").innerHTML = datafilter[0].value;
+        //let ploty = d3.select("body").append("#dashboard2")
+        let plotty = d3.select("#dashboard2")
+                        .data(datafilter)
+                        .enter()
+                        .append("rect")
+                      //  .attr("y", function(d){
+                      //      return 
+                      //  })
+                     
         //console.log(selectedvar)
 
     }
