@@ -866,9 +866,9 @@ d3.dsv(",", pathToCsv3, function (d) {
         //datafilter = datafilter.slice(datafilter.length - , datafilter.length);
         console.log(datafilter)
         yb.domain(datafilter.map(function(d){return d.name})).padding(.2);
-        document.getElementById("dashboard1").innerHTML = datafilter[0].Variable;
+        document.getElementById("dashboard1").innerHTML = varsee;
         
-        document.getElementById("dashboard2").innerHTML = datafilter[0].value
+        //document.getElementById("dashboard2").innerHTML = datafilter[0].value
         
         let grap = d3.select("#dasboard").append("g").attr("id", "graph").attr("transform", "translate(" +100+ ", 0 )")               
         grap.selectAll("rect")
