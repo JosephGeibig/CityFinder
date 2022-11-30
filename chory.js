@@ -564,6 +564,7 @@ d3.dsv(",", pathToCsv3, function (d) {
     let current_citiess = [];
     let current_city_ids = 'current_cities_selection';
     let current_city_idss = '#' + current_city_ids;
+    let totalcity = [];
             
     if (state != undefined){
         current_citiess = data.filter(function(d){ return d.StateName == state});
@@ -582,9 +583,14 @@ d3.dsv(",", pathToCsv3, function (d) {
               return d.CityName;
             });
         d3.select("#cDropdown").on("change", function(d){
-            citydata(d3.select(this).property("value"));
+            totalcity.push(d3.select(this).property("value"));
+           // console.log(totalcity)            
         })
-        citydata(current_citiess[0].CityName)
+        d3.select("#button1").on("click", function(d){
+            //console.log(totalcity)
+            citydata(totalcity)
+        })
+       //citydata(current_citiess[0].CityName)
         
     }
     if (state == undefined){
@@ -595,8 +601,10 @@ d3.dsv(",", pathToCsv3, function (d) {
         d3.select("#dashboard2").html("")
         
 }
+    
     function citydata(city){ 
-    selectedcity = data.filter(function(d){return (d.StateName == state && d.CityName == city)})
+    selectedcity = data.filter(function(d){return (d.StateName == state && city.includes(d.CityName))})
+       
        console.log(selectedcity)
         //var varsee = []
         //d3.select("#variableDropdown").on("change", function (d) {
@@ -614,8 +622,8 @@ d3.dsv(",", pathToCsv3, function (d) {
         document.getElementById("dashboard1").innerHTML = datafilter[0].Variable;
         document.getElementById("dashboard2").innerHTML = datafilter[0].value;
         //console.log(selectedvar)
-}
-    
+
+    }
           
 });
     
