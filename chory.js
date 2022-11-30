@@ -842,12 +842,15 @@ d3.dsv(",", pathToCsv3, function (d) {
          //   .data(datafilter)
         
         document.getElementById("dashboard1").innerHTML = datafilter[0].Variable;
-        //document.getElementById("dashboard2").innerHTML = datafilter[0].value;
-        //let ploty = d3.select("body").append("#dashboard2")
-        let plotty = d3.select("#dashboard2")
-                        .data(datafilter)
+        
+        document.getElementById("dashboard2").innerHTML = datafilter[0].value
+            
+            var grap = svg.append("g").attr("id", "dashboard2").selectAll("rect")
+                        .data(datafilter[0])
                         .enter()
                         .append("rect")
+                        .text("Hello")
+        //plotty.append("text").text("Hello")
                       //  .attr("y", function(d){
                       //      return 
                       //  })
