@@ -39,14 +39,14 @@ Current color pallette (dark to light)
     
 </head>
         <!-- Favicon-->
-<title>City Quality of Life</title>
+<title>Where Should You Live?</title>
 <!--</head>-->
 
 <body>
     
     <header class="masthead">
         <div class="container">
-            <div id = "head" class="masthead-heading text-uppercase">City Quality of Life</div>
+            <div id = "head" class="masthead-heading text-uppercase">Where Should You Live?</div>
             <div id = "subhead" class="masthead-subheading text-uppercase">Josh Cantera, Sam Courson, Andrew Crawford, Joseph Geibig, Mark Ramirez</div>
         </div>
     </header>
@@ -58,11 +58,7 @@ Current color pallette (dark to light)
 <!--            Change this to be more pertinent to current state of project-->
                 <p id = "intro" class = "">     As Graduate students, we are all at a point of our lives when we must decide where to live as we begin our careers. There are many factors that affect this decision, and those factors may not be the same for everyone. However, we believe there are a few core factors that are shared amongst all people looking to relocate and find "home". There are a few “Quality of life” measures, such as NerdWallet’s cost of living index, but they tend to be extremely general, and as a result, quite inaccurate. Furthermore, some of the metrics used by these indexes are not the best representation of what we believe people look for when they move to a new area. </p>
                 <br>
-                <b> Above section needs to mention the following:</b>
-                <br>
-                <b> The motivations </b>
-                <br>
-                <b> What our project actually does  </b>
+                <p>We decided to remedy this situation by creating our own way to determine where we want to live. Primarily using a KNN model built off of data we gathered from a variety of sources, we hope this will inform your decision on where to live! </p>
         </div>
     </section>
     
@@ -74,12 +70,29 @@ Current color pallette (dark to light)
             <p id = "instructions"> Our tool is presented through 3 visualizations.   </p>
             <p> <b>–––</b> First is a choropleth map showing the average of all cities throughout the state for the variable you would like to see. If you would like to see the specific value for each state, you can hover over them to see the average of all cities in that state for the selected metric. 
             </p>
-            <p> <b>–––</b> If you find a variable that you are interested in, you can click on a state in the choropleth to select it. Then, below the choropleth you will find a selection windows for the cities in the state. You can select one or more cities in this selection window to compare the variable in the choropleth between each city. 
-            </p>
-            <p> <b>–––</b> Lastly, once you have examined the other two visualizations and have determined a city that has a lot of the factors which you would like for your ideal city, you can go to our KNN model at the bottom, which is shown as a map with all cities displayed. If you click on a city, the 5 most similar cities in all metrics are highlighted on the map. If you would like to increase this number, you can in the entry box above the visualization. 
-            </p>
             
-    
+            <p> <b>–––</b> Once you have examined the other two visualizations and have determined a city that has a lot of the factors which you would like for your ideal city, you can go to our KNN model at the bottom, which is shown as a map with all cities displayed. If you click on a city, the 5 most similar cities in all metrics are highlighted on the map. If you would like to increase this number, you can in the entry box above the visualization. 
+            </p>
+            <p> <b>–––</b> Lastly, If you find a variable that you are interested in, you can click on a state in the choropleth to select it. Then, below the choropleth you will find a selection windows for the cities in the state. You can select one or more cities in selection window under <b>"Data Exploration"</b> to visualize it in a bar chart below the graph. . 
+            </p>
+            <br>
+            <p>Each of these can be accessed in the below segment. For all three visualizations, there are controls present in the top right section for each visualization.</p>
+            <br>
+            <p>–––––</p>
+            <p>Firstly, there is a variable selection. This changes the variable represented by the choropleth, as well as the variable displayed in the bar chart. Changing this variable will reload the choropleth.</p> <br>
+            <p>In the choropleth, you can hover over states to see a tooltip describing their statistics. This tooltip includes the name of the state, the value of the variable selected, and the number of cities in that state that is represented in our dataset.
+            </p> 
+            <p>In the choropleth, if you like a specific state's data, you can click on the state to highlight it. This opens the state up for the next two modes of analysis. If you have selected a state, you can double click on the state to unselect it, allowing you to select a different state.</p><br>
+        
+            <p>–––––</p>
+            <p>Next, in the KNN section, there is a selection window for the city you would like to select. This list of cities is pulled from the state which is selected, so if you are unable to select a city you should first select a state. </p>
+            
+            <p>Below this dropdown, there is a slider to represent the number of cities you would like to see. It defaults to 5, but you can move it to the far left to remove the dots, or to the far right to display 20 cities.</p>
+            <p>When you have a city selected and the proper number of cities selected, dots will show up on the map where the most similar cities are located. The selected city is represented by a black dot, the most similar by a red dot, and the rest by yellow dots. These can be hovered over to learn the name and rank of city.</p>
+            
+            <p>–––––</p>
+            <p>Last, in the data exploration section, when there is state selected, there is a dropdown which displays all cities within the state that is selected. You can then select multiple responses from this dropdown, and then click "show me the money" to have the selected cities' values for the seleceted variable displayed in a barchart below the map.</p>
+            <p>If you would to remove the barchart, you can click the reset button. This also unselects all cities that were previously selected, so you will need to adjust the selected cities.</p>
             
         </div>
     </section>
@@ -143,6 +156,17 @@ Current color pallette (dark to light)
                 </div>
             </div>
 
+            <br> <hr> <br>
+            <div class="row">
+                <p>Selected Variable:</p><p id = "dashboard1"></p>
+                <svg id = "dasboard" width = "1000" height = "220"></svg>
+                
+
+            
+            
+            
+            <hr>
+            </div>
 
             <script type = "text/javascript" src = 'chory.js' class = "choro_bg"></script>
         </div>
@@ -150,31 +174,7 @@ Current color pallette (dark to light)
     
 
     
-    <br> <hr>
-    
-    <section class = "content-section"> 
-        <div class = "container" id="dashcontain">
-            <p>If you want to see the information on any specific cities, you can select a state above by clicking on it. This will add the cities to the below dropdown. You can select one or multiple cities to compare in the visualizaiton below.</p>       
-            <p id = "dash"> If you want to select multiple cities, hold command on mac or control on windows to allow the selection of multiple cities. </p>
-            <p> If you would like to select a different state, double click on the selected on in the choropleth above. The selected state should have an orange border around it. </p>
-            <br>
-<!--           <span>Select City: <select multiple id="cDropdown" ></select></span> -->
-            
-<!--            <span><button type="button" id = "button1">Show me the money!</button></span> -->
-            <p>Data for Selected Cities:</p>
-            <p>Selected Variable</p>
-            <span></span><p id = "dashboard1"></p>
-            <p>Graph:</p>
-           
-            <span></span><p id = 'dashboard2'></p>
-            <span>Reset Graph:</span>
-            <svg id = "dasboard" width = "1000" height = "220"></svg>
-            <span><button type ="button" id = "button2">Reset</button></span>
-            
-            
-        </div>
-        
-    </section>
+   
     
     
     <script id = "dash" type = "module" src = "dash.js">
@@ -194,17 +194,11 @@ Current color pallette (dark to light)
         
 <!--            <script src = "dropdown.js"> </script>-->
             <br>
-            <p id = "knn"> K Nearest Neighbors <b>(KNN)</b> models are used to find the closest k neighbors to a selected city based on the distance between variables. </p>
+            <p id = "knn"> K Nearest Neighbors <b>(KNN)</b> models are used to find the closest k neighbors to a selected point based on the distance between variables. We used a standardized matrix of all the variables in the dataset, and then calculated the euclidean distance from each city to all others. These were then ranked from closest to furthest, which is what you can see in the above section. 
             
-            <p> In this instance, our model uses knn clustering based on the distances between each city, and then returns the k nearest cities for the selected city. The cities which are highlighted in the below map are the ones which are most similar in all metrics to the selected city. Our tool uses a slider so that users can specify how many similar cities they want to see. Additionally, we mark the most similar city in red to make it easier for users to see the most relevant result for their search.</p>
+<!--            <p> In this instance, our model uses knn clustering based on the distances between each city, and then returns the k nearest cities for the selected city. The cities which are highlighted in the below map are the ones which are most similar in all metrics to the selected city.</p>-->
             <br>
-            <b> Above section needs to mention the following:</b>
-            <br>
-            <b> What is a knn?</b>
-            <br>
-            <b> How we implemented it ? </b>
-            <br>
-            <b> how to use (if interactivity included) </b>
+           
         </div>
     </section>
     
@@ -244,7 +238,7 @@ Current color pallette (dark to light)
     
     <section class = "content-section"> 
         <div class = "container">
-            <p id = "summ"> Summary text</p>
+            <p id = "summ">Thank you for using our tool! For a surprise, click the button below: </p>
         </div>
     </section>
     
@@ -252,8 +246,10 @@ Current color pallette (dark to light)
     <footer class = "footer">
         <section class = "content-section">
         
-            <div class = "container"> content 
-                            <button onclick = "location.href='https://media.tenor.com/vu2ODWiSHGUAAAAC/despicable-me-minions.gif'" type = 'button' id = 'minion'>Press for minions</button>
+            <div class = "container"> 
+                <p id = "summ">Thank you for using our tool! For a surprise, click the button below: </p>
+                <br>
+                <button onclick = "location.href='https://media.tenor.com/vu2ODWiSHGUAAAAC/despicable-me-minions.gif'" type = 'button' id = 'minion'>Press for minions</button>
 
             </div>
         
