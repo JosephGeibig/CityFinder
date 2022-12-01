@@ -1902,3 +1902,24 @@ hr {
 }
 
 
+.column {
+  float: left;
+  padding: 10px;
+  height: 500px;
+}
+
+.left {
+  width: 800px;
+}
+
+.right {
+  width: 280px;
+}
+
+/* Clear floats after the columns */
+.row:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+
