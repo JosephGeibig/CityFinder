@@ -100,26 +100,29 @@ Current color pallette (dark to light)
     <!-- Script to hold the main choropleth visualization-->
 
     <section class = "content-section choro_bg"> 
-        <div class = "container choro_bg">
+        <div class = "container-sm choro_bg">
             <div class="row">
-                <div class="column">
-                    <div id="savage"></div>
-                
+                <div class="column pad">
+                    <div class="border">
+                        <div id="savage"></div>
+                    </div>
                 </div>
                 
+<!--                <div class="vl"></div>-->
+                
                 <div class="column">
-                    <div>Which Variable?</div>
+<!--                    <hr class="hr1">-->
+                    <p><b><u>Which Variable?</u></b></p>
                     <select id="variableDropdown" class = "custom-select"></select>
-                    <br> <br>
-                    <div><b><u>KNN</u></b></div>
-                    <br>
+                    <br> <hr class="hr1"> 
+                    <p><b><u>KNN</u></b></p>
                     <div>
                         Pick a city <select id="CityDropdown" ></select>
                     </div>
                     <br>
                     <div class="slider">
-                        <label for="fader">Number of Cities  </label>
-                        <p>
+                        <label for="slider">Number of Cities  </label>
+                        <p class="nopad">
                             <input id="slider" type="range" min="0" max="25" step="5" value="5" orient="vertical" list = "volsettings">
                             <datalist id="volsettings">
                                 <option>0</option>
@@ -130,6 +133,13 @@ Current color pallette (dark to light)
                             </datalist>
                         </p>
                     </div>
+                    <hr class="hr1">
+                    <p><b><u>Data Exploration</u></b></p>
+                    <span>Select City: <select multiple id="cDropdown" ></select></span> 
+                    <span><button type="button" id = "button1">Show me the money!</button></span>
+                    <span><button type ="button" id = "button2">Reset</button></span>
+                    
+                    
                 </div>
             </div>
 
@@ -148,12 +158,9 @@ Current color pallette (dark to light)
             <p id = "dash"> If you want to select multiple cities, hold command on mac or control on windows to allow the selection of multiple cities. </p>
             <p> If you would like to select a different state, double click on the selected on in the choropleth above. The selected state should have an orange border around it. </p>
             <br>
-           
-            <span>
-            Select City: <select multiple id="cDropdown" ></select>
-                
-        </span>
-           <span><button type="button" id = "button1">Show me the money!</button></span> 
+<!--           <span>Select City: <select multiple id="cDropdown" ></select></span> -->
+            
+<!--            <span><button type="button" id = "button1">Show me the money!</button></span> -->
             <p>Data for Selected Cities:</p>
             <p>Selected Variable</p>
             <span></span><p id = "dashboard1"></p>

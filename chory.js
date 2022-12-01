@@ -6,7 +6,7 @@
 
  
 var width = 700;
-var height = 500;
+var height = 475;
 
 var lowColor = '#DEEDCF';
 var highColor = '#0A2F51';

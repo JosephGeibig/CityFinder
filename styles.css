@@ -80,11 +80,11 @@ body {
 }
 
 hr {
-  margin: 1rem 0;
-  color: inherit;
+  margin: .5rem 0;
+  color: white;
   background-color: currentColor;
   border: 0;
-  opacity: 0.25;
+  opacity: 0.5;
 }
 
 hr:not([size]) {
@@ -145,7 +145,7 @@ h6, .h6 {
 
 p {
   margin-top: 0;
-  margin-bottom: 1rem;
+  margin-bottom: 0.5rem;
 }
 
 abbr[title],
@@ -1906,14 +1906,18 @@ hr {
   float: left;
   padding: 10px;
   height: 500px;
+  padding-right: 3px;
+  border: 2px solid white;
+
 }
 
 .left {
   width: 800px;
+
 }
 
 .right {
-  width: 280px;
+  width: 240px;
 }
 
 /* Clear floats after the columns */
@@ -1923,3 +1927,19 @@ hr {
   clear: both;
 }
 
+
+.vl {
+  border-left: 3px solid white;
+  height: 500px;
+}
+
+.pad {
+    padding-left:3px;
+
+}
+
+
+.hr1 {
+    border-top: 2px solid #fff;
+    
+}
