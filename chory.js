@@ -112,6 +112,7 @@ d3.dsv(",", pathToCsv2, function (d) {
         'city_st_abbr': d['city_st_abbr'],
         'lat': d['lat'],
         'lng': d['lng'],
+        0: +d['0'],
         1: +d['1'],
         2: +d['2'],
         3: +d['3'],
@@ -303,7 +304,7 @@ d3.dsv(",", pathToCsv2, function (d) {
         //                    <strong>Avg Rating: </strong><span class='details'>${d.rating}<br/></span>`
         });
     let nn_mouseOver = function(d) {
-        d3.select(this).attr('r', 8).style('stroke', 'black');
+        d3.select(this).attr('r', 10).style('stroke', 'black');
         
         nn_tip.show(d, this);
     }
@@ -312,6 +313,9 @@ d3.dsv(",", pathToCsv2, function (d) {
         d3.select(this).attr('r', 5).style('stroke', function(d) {
             if(d.rank == 1) {
                 return 'red';
+            }
+            if(d.rank == 0) {
+                return 'black';
             }
             return "#FEDE00";
         });
@@ -383,7 +387,7 @@ d3.dsv(",", pathToCsv2, function (d) {
         return nndata.filter(g => g.city_id == id)[0];
     }
 
-    function getCitiesByID(ids) {
+    function getCitiesByID(ids, main_city_id) {
         let cities = [];
         let i = 1;
         for( id in ids) {
@@ -397,6 +401,8 @@ d3.dsv(",", pathToCsv2, function (d) {
             cities.push({'rank':i, 'city':new_city});
             i = i + 1;
         }
+        let mc_data = getCityByID(main_city_id);
+        cities.push({'rank':0, 'city':mc_data})
         // nndata.forEach(function(d) {
         //     if(d.city_id in ids) {
         //         cities.push(d)
@@ -444,7 +450,7 @@ d3.dsv(",", pathToCsv2, function (d) {
         }
         // console.log("NN");
         // console.log(nn);
-        let cities = getCitiesByID(nn);
+        let cities = getCitiesByID(nn, cty['0']);
         
         
 
@@ -496,11 +502,17 @@ d3.dsv(",", pathToCsv2, function (d) {
                 if(d.rank == 1) {
                     return 'red';
                 }
+                if(d.rank == 0) {
+                    return 'black';
+                }
                 return "#FEDE00";
             })
             .style("stroke", function(d) {
                 if(d.rank == 1) {
                     return 'red';
+                }
+                if(d.rank == 0) {
+                    return 'black';
                 }
                 return "#FEDE00";
             })
