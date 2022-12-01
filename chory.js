@@ -5,7 +5,7 @@
 //}
 
  
-var width = 1500;
+var width = 1000;
 var height = 680;
 
 var lowColor = '#DEEDCF';
@@ -27,7 +27,7 @@ var thousandsformat = d3.format(",");
 
 // Create SVG element and append map to the SVG
 
-var svg = d3.select("body")
+var svg = d3.select("#savage")
         .append("svg")
         .attr("width", width)
         .attr("height", height)
@@ -173,7 +173,7 @@ d3.dsv(",", pathToCsv2, function (d) {
         }
 
         
-        var valuelist = ["Number of Cities",
+        var valuelist = [
                          "Average 2020/2021 household income",
                          "Historic Percent Change in Household Income 1984-2019",
                          "Average Yearly Historic Percent Change in Income 1984-2019",

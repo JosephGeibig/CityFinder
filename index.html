@@ -98,44 +98,46 @@ Current color pallette (dark to light)
     
     
     <!-- Script to hold the main choropleth visualization-->
+
     <section class = "content-section choro_bg"> 
         <div class = "container choro_bg">
-    <div>
-    Which variable? 
-        <select id="variableDropdown" class = "custom-select"></select>
-        <br> <br>
-    <div><b><u>KNN</u></b></div><br>
-    <!-- <div>
-                Pick a state 
-               <select id="StateDropdown" ></select>
+            <div class="row">
+                <div class="column">
+                    <div id="savage"></div>
+                
+                </div>
+                
+                <div class="column">
+                    <div>Which Variable?</div>
+                    <select id="variableDropdown" class = "custom-select"></select>
+                    <br> <br>
+                    <div><b><u>KNN</u></b></div>
+                    <br>
+                    <div>
+                        Pick a city <select id="CityDropdown" ></select>
+                    </div>
+                    <br>
+                    <div class="slider">
+                        <label for="fader">Number of Cities  </label>
+                        <p>
+                            <input id="slider" type="range" min="0" max="25" step="5" value="5" orient="vertical" list = "volsettings">
+                            <datalist id="volsettings">
+                                <option>0</option>
+                                <option>5</option>
+                                <option>10</option>
+                                <option>15</option>
+                                <option>20</option>
+                            </datalist>
+                        </p>
+                    </div>
+                </div>
             </div>
-            <script src = "dropdown.js"> </script>-->
-
-            <div>
-                Pick a city <select id="CityDropdown" ></select>
-            </div>
-        <br>
-        <div class="slider">
-            <label for="fader">Number of Cities  </label>
-            <p>
-			<input id="slider" type="range" min="0" max="25" step="5" value="5" orient="vertical" list = "volsettings">
-            <datalist id="volsettings">
-                <option>0</option>
-                <option>5</option>
-                <option>10</option>
-                <option>15</option>
-                <option>20</option>
-            </datalist>
-            </p>
-        </div>
-    </div>
 
 
-            <script type = "text/javascript" src = 'chory.js' class = "choro_bg" >
-
-            </script>
+            <script type = "text/javascript" src = 'chory.js' class = "choro_bg"></script>
         </div>
     </section>
+    
 
     
     <br> <hr>
@@ -243,9 +245,9 @@ Current color pallette (dark to light)
     <footer class = "footer">
         <section class = "content-section">
         
-            <div class = "container"> 
-                <button onclick = "location.href='https://media.tenor.com/vu2ODWiSHGUAAAAC/despicable-me-minions.gif'" type = 'button' id = 'minion'>Press for minions</button>
-    
+            <div class = "container"> content 
+                            <button onclick = "location.href='https://media.tenor.com/vu2ODWiSHGUAAAAC/despicable-me-minions.gif'" type = 'button' id = 'minion'>Press for minions</button>
+
             </div>
         
         </section>
