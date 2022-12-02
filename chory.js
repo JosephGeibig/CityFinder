@@ -112,27 +112,48 @@ d3.dsv(",", pathToCsv2, function (d) {
         'city_st_abbr': d['city_st_abbr'],
         'lat': d['lat'],
         'lng': d['lng'],
-        0: +d['0'],
-        1: +d['1'],
-        2: +d['2'],
-        3: +d['3'],
-        4: +d['4'],
-        5: +d['5'],
-        6: +d['6'],
-        7: +d['7'],
-        8: +d['8'],
-        9: +d['9'],
-        10: +d['10'],
-        11: +d['11'],
-        12: +d['12'],
-        13: +d['13'],
-        14: +d['14'],
-        15: +d['15'],
-        16: +d['16'],
-        17: +d['17'],
-        18: +d['18'],
-        19: +d['19'],
-        20: +d['20']
+        0: +d['0_x'],
+        1: +d['1_x'],
+        2: +d['2_x'],
+        3: +d['3_x'],
+        4: +d['4_x'],
+        5: +d['5_x'],
+        6: +d['6_x'],
+        7: +d['7_x'],
+        8: +d['8_x'],
+        9: +d['9_x'],
+        10: +d['10_x'],
+        11: +d['11_x'],
+        12: +d['12_x'],
+        13: +d['13_x'],
+        14: +d['14_x'],
+        15: +d['15_x'],
+        16: +d['16_x'],
+        17: +d['17_x'],
+        18: +d['18_x'],
+        19: +d['19_x'],
+        20: +d['20_x'],
+        'd0': +d['0_y'],
+        'd1': +d['1_y'],
+        'd2': +d['2_y'],
+        'd3': +d['3_y'],
+        'd4': +d['4_y'],
+        'd5': +d['5_y'],
+        'd6': +d['6_y'],
+        'd7': +d['7_y'],
+        'd8': +d['8_y'],
+        'd9': +d['9_y'],
+        'd10': +d['10_y'],
+        'd11': +d['11_y'],
+        'd12': +d['12_y'],
+        'd13': +d['13_y'],
+        'd14': +d['14_y'],
+        'd15': +d['15_y'],
+        'd16': +d['16_y'],
+        'd17': +d['17_y'],
+        'd18': +d['18_y'],
+        'd19': +d['19_y'],
+        'd20': +d['20_y']
         }
         
     }).then(function (nndata) {
@@ -299,7 +320,8 @@ d3.dsv(",", pathToCsv2, function (d) {
         .attr('offset', [-1, 0])
         .html(function (d) {
             return `<strong>City: </strong><span class='details'>${d.city.city_state}<br></span>
-            <strong>Ranking: </strong><span class='details'>${d.rank}<br/></span>`
+            <strong>Ranking: </strong><span class='details'>${d.rank}<br/></span>
+            <strong>Distance Score: </strong><span class='details'>${d.dist}<br/></span>`
         //                    <strong>Number of Users: </strong><span class='details'>${d.users}<br/></span>
         //                    <strong>Avg Rating: </strong><span class='details'>${d.rating}<br/></span>`
         });
@@ -379,30 +401,32 @@ d3.dsv(",", pathToCsv2, function (d) {
     //getNearestCities(null);
 
     function getCity(city, state) {
-        return nndata.filter(g => g.state == state & g.city == city)[0];
-    
+        let r = nndata.filter(g => g.state == state & g.city == city)[0];
+        //console.log(r);
+        return r;
     }
 
     function getCityByID(id) {
         return nndata.filter(g => g.city_id == id)[0];
     }
 
-    function getCitiesByID(ids, main_city_id) {
+    function getCitiesByID(ids, main_city_id, distances) {
         let cities = [];
         let i = 1;
         for( id in ids) {
             let new_city = getCityByID(ids[id]);
             //console.log(new_city);
 
-            if(new_city.lat == undefined || new_city.lng == undefined) {
-                console.log("Undefined");
-                console.log(new_city);
-            }
-            cities.push({'rank':i, 'city':new_city});
+            // if(new_city[0].lat == undefined || new_city[0].lng == undefined) {
+            //     console.log("Undefined");
+            //     console.log(new_city);
+            // }
+            //console.log(distances[i-1]);
+            cities.push({'rank':i, 'city':new_city, 'dist':distances[i-1]});
             i = i + 1;
         }
         let mc_data = getCityByID(main_city_id);
-        cities.push({'rank':0, 'city':mc_data})
+        cities.push({'rank':0, 'city':mc_data, 'dist':0});
         // nndata.forEach(function(d) {
         //     if(d.city_id in ids) {
         //         cities.push(d)
@@ -417,11 +441,11 @@ d3.dsv(",", pathToCsv2, function (d) {
         let num = d3.select('#slider').property("value");
         //console.log(num);
         getNearestCities(SELECTED_CITY, num);
-    })
+    });
 
     d3.select('#slider').on("change", function(d) {
         getNearestCities(SELECTED_CITY, d3.select(this).property("value"));
-    })
+    });
     
     function getNearestCities(city_name, n = 5) {
         if (n > 20) {
@@ -441,16 +465,19 @@ d3.dsv(",", pathToCsv2, function (d) {
         let cty = getCity(city_name, SELECTED_STATE);
         //console.log(cty);
         let nn = [];
+        let distances = [];
         // console.log(cty);
         let indexes = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12', '13', '14', '15', '16', '17', '18', '19', '20'];
+        let dindexes = ['d1', 'd2', 'd3', 'd4', 'd5', 'd6', 'd7', 'd8', 'd9', 'd10', 'd11', 'd12', 'd13', 'd14', 'd15', 'd16', 'd17', 'd18', 'd19', 'd20'];
         for(let i = 0; i < n; i++) {
             let v = cty[indexes[i]];
-            
+            let vd = cty[dindexes[i]];
             nn.push(v);
+            distances.push(vd);
         }
         // console.log("NN");
         // console.log(nn);
-        let cities = getCitiesByID(nn, cty['0']);
+        let cities = getCitiesByID(nn, cty['0'], distances);
         
         
 
@@ -480,6 +507,8 @@ d3.dsv(",", pathToCsv2, function (d) {
         if(cities == null) {
             return null;
         }
+        // console.log('cities');
+        // console.log(cities);
     
         svg
             .selectAll("circle")
