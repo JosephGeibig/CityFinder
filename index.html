@@ -196,9 +196,9 @@ Current color pallette (dark to light)
         
 <!--            <script src = "dropdown.js"> </script>-->
             <br>
-            <p id = "knn"> K Nearest Neighbors <b>(KNN)</b> models are used to find the closest k neighbors to a selected point based on the distance between variables. We used a standardized matrix of all the variables in the dataset, and then calculated the euclidean distance from each city to all others. These were then ranked from closest to furthest, which is what you can see in the above section. 
-            
-<!--            <p> In this instance, our model uses knn clustering based on the distances between each city, and then returns the k nearest cities for the selected city. The cities which are highlighted in the below map are the ones which are most similar in all metrics to the selected city.</p>-->
+            <p id = "knn"> K Nearest Neighbors <b>(KNN)</b> models are used to find the closest k neighbors to a selected data point based on the distance between the points. We used a standardized matrix of all the city variables in the dataset, and then calculated the euclidean distance from each city to all others. These were then ranked from closest to furthest, which is what you can see in the above section. 
+            <p>By hovering your cursor over each dot on the choropleth (after you choose a city from the <b>KNN</b> dropdown), you can see how similar multiple cities are to the chosen city. To increase/decrease the number of cities shown, you can change the slider value which specifies the k value (number of cities shown). This distance encompasses all the standardized variables that you can select through the variable dropdown.</p>
+            <p>The tooltip shows both the distance to the selected city and the ranking based on distance (with the smallest distance being the most similar city).</p>
             <br>
            
         </div>
