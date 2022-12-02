@@ -149,14 +149,17 @@ Current color pallette (dark to light)
                     <hr class="hr1">
                     <p><b><u>Data Exploration</u></b></p>
                     <span>Select City: <select  id="cDropdown" ></select></span> 
-                    <span><button type="button" id = "button1">Show me the money!</button></span>
+                    <p class="inst"><i>Please note: the above dropdown is used to select cities. Each city selected from the dropdown will be added the to bar chart visualization when the "show me the money!" button is clicked. To remove cities, click the "reset" button. </i></p>
+                    <br> <br>  
+<!--                    <br> <br> <br> <br> <br> <br> <br> <br>-->
+                    <span class="leftspace"><button type="button" id = "button1">Show me the money!</button></span>
                     <span><button type ="button" id = "button2">Reset</button></span>
                     
                 </div>
             </div>
 
-            <br> <hr> <br>
             <div class="row">
+                <br> <hr> <br>
                 <p>Selected Variable:</p><p id = "dashboard1"></p>
                 <svg id = "dasboard" width = "1000" height = "220"></svg>
                 

@@ -1989,7 +1989,7 @@ input[type=range]::-webkit-slider-thumb {
     height: 16px;
     width: 16px;
     border-radius: 50%;
-    background: goldenrod;
+    background: #fede00;
     margin-top: -4px;
 }
 
@@ -2031,7 +2031,7 @@ input[type=range]::-ms-thumb {
     height: 16px;
     width: 16px;
     border-radius: 50%;
-    background: goldenrod;
+    background: #fede80;
 }
 input[type=range]:focus::-ms-fill-lower {
     background: #888;
@@ -2041,10 +2041,23 @@ input[type=range]:focus::-ms-fill-upper {
 }
 
 
+.leftspace{
+    padding-right: 25%;
+    padding-left: 10%
+}
 
 
-
-
+.inst{
+  font-size: 12px;
+  width:500px;
+  padding-top:5px;
+/*  border-style:solid;*/
+/*  border-color:#336699;*/
+/*  border-width:1px;*/
+/*  padding-left:3px;*/
+/*  padding-bottom:10px;*/
+  word-wrap: break-word;
+}
 
 
 
